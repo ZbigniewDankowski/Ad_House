@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { TEInput, TERipple } from "tw-elements-react";
-import logo from "../assets/AdHouse.png";
 
 export default function LoginPage(): JSX.Element {
+  const logo = require("../assets/logo.png");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handle_email = (e) => {
+    setEmail(e.target.value);
+  };
+  const handle_password = (e) => {
+    setPassword(e.target.value);
+  };
+
   return (
     <section className="h-full bg-neutral-200 dark:bg-neutral-700">
       <div className="container h-full p-10">
@@ -28,6 +38,7 @@ export default function LoginPage(): JSX.Element {
                         type="email"
                         label="E-mail"
                         className="mb-4"
+                        onChange={handle_email}
                       ></TEInput>
 
                       {/* <!--Password input--> */}
@@ -35,6 +46,7 @@ export default function LoginPage(): JSX.Element {
                         type="password"
                         label="Hasło"
                         className="mb-4"
+                        onChange={handle_password}
                       ></TEInput>
 
                       {/* <!--Submit button--> */}

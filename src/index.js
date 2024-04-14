@@ -15,10 +15,10 @@ const router = createBrowserRouter([
     path: "/admin",
     element: <AdminPanel />,
   },
-  {
-    path: "/userlogin",
-    element: <User_Panel />,
-  },
+  // {
+  //   path: "/userlogin",
+  //   element: <User_Panel />,
+  // },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

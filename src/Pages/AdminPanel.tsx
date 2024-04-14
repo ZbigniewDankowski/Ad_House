@@ -1,8 +1,8 @@
 import React from "react";
 import { TEInput, TERipple } from "tw-elements-react";
-import logo from "../assets/AdHouse.png";
 
 export default function AdminPanel(): JSX.Element {
+  const logo = require("../assets/logo.png");
   return (
     <section className="h-full bg-neutral-200 dark:bg-neutral-700">
       <div className="container h-full p-10">
