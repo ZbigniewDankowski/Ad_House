@@ -1,16 +1,43 @@
 import React, { useState } from "react";
 import { TEInput, TERipple } from "tw-elements-react";
+import axios from "axios";
 
-export default function LoginPage(): JSX.Element {
+const LoginPage = ({ onLogin }) => {
   const logo = require("../assets/logo.png");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handle_email = (e) => {
+    e.preventDefault();
     setEmail(e.target.value);
   };
   const handle_password = (e) => {
+    e.preventDefault();
     setPassword(e.target.value);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8000/token", {
+        username: email,
+        password: password,
+      });
+      const token = response.data.access_token;
+      // Zapisz token w localStorage lub w kontekście aplikacji
+      console.log("Access Token:", token);
+
+      // Pobierz dane użytkownika po zalogowaniu
+      const userResponse = await axios.get("http://localhost:8000/user", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const userData = userResponse.data;
+      onLogin(userData); // Przekazanie danych użytkownika do rodzica
+    } catch (error) {
+      setError("Nieprawidłowy email lub hasło");
+    }
   };
 
   return (
@@ -31,7 +58,7 @@ export default function LoginPage(): JSX.Element {
                       </h4>
                     </div>
 
-                    <form>
+                    <form onSubmit={handleSubmit}>
                       <p className="mb-4">Zaloguj sie na swoje konto</p>
                       {/* <!--Username input--> */}
                       <TEInput
@@ -54,7 +81,7 @@ export default function LoginPage(): JSX.Element {
                         <TERipple rippleColor="light" className="w-full">
                           <button
                             className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
-                            type="button"
+                            type="submit"
                             style={{
                               background:
                                 "linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)",
@@ -99,4 +126,5 @@ export default function LoginPage(): JSX.Element {
       </div>
     </section>
   );
-}
+};
+export default LoginPage;
