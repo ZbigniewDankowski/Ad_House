@@ -17,6 +17,7 @@ const LoginPage = ({ onLogin }) => {
     setPassword(e.target.value);
   };
   const handleSubmit = async (e) => {
+    console.log(email, password);
     e.preventDefault();
     try {
       const response = await axios.post("http://localhost:8000/token", {
