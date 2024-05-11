@@ -17,27 +17,19 @@ const LoginPage = ({ onLogin }) => {
     setPassword(e.target.value);
   };
   const handleSubmit = async (e) => {
-    console.log(email, password);
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/token", {
-        username: email,
-        password: password,
+      const response = await axios.post("http://localhost:8000/login/", {
+        email,
+        password,
       });
-      const token = response.data.access_token;
-      // Zapisz token w localStorage lub w kontekście aplikacji
-      console.log("Access Token:", token);
-
-      // Pobierz dane użytkownika po zalogowaniu
-      const userResponse = await axios.get("http://localhost:8000/user", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const userData = userResponse.data;
-      onLogin(userData); // Przekazanie danych użytkownika do rodzica
+      onLogin(response.data); // Przekazuje dane użytkownika do App.js
     } catch (error) {
-      setError("Nieprawidłowy email lub hasło");
+      if (error.response && error.response.status === 401) {
+        setError("Invalid email or password");
+      } else {
+        setError("An error occurred. Please try again later.");
+      }
     }
   };
 
