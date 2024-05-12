@@ -1,25 +1,27 @@
-import React from "react";
-import { useState, useEffect } from "react";
+// Pages/User_Panel.js
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const User_Panel = ({ user }) => {
+const UserPanel = ({ user }) => {
   const [userData, setUserData] = useState(null);
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8000/user/${user.user_id}`
-        );
-        setUserData(response.data);
-      } catch (error) {
-        console.error("Błąd pobierania danych użytkownika:", error);
-      }
-    };
 
-    if (user) {
+  useEffect(() => {
+    if (user && user.user_id) {
+      const fetchUserData = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost:8000/user/${user.user_id}`
+          );
+          setUserData(response.data);
+        } catch (error) {
+          console.error("Błąd pobierania danych użytkownika:", error);
+        }
+      };
+
       fetchUserData();
     }
   }, [user]);
+
   return (
     <div>
       <h2>Panel użytkownika</h2>
@@ -34,4 +36,4 @@ const User_Panel = ({ user }) => {
   );
 };
 
-export default User_Panel;
+export default UserPanel;

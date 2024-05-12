@@ -1,3 +1,4 @@
+// Pages/LoginPage.js
 import React, { useState } from "react";
 import { TEInput, TERipple } from "tw-elements-react";
 import axios from "axios";
@@ -6,16 +7,15 @@ const LoginPage = ({ onLogin }) => {
   const logo = require("../assets/logo.png");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
   const handle_email = (e) => {
-    e.preventDefault();
     setEmail(e.target.value);
   };
+
   const handle_password = (e) => {
-    e.preventDefault();
     setPassword(e.target.value);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -23,15 +23,15 @@ const LoginPage = ({ onLogin }) => {
         email,
         password,
       });
-      onLogin(response.data); // Przekazuje dane użytkownika do App.js
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        setError("Invalid email or password");
-      } else {
-        setError("An error occurred. Please try again later.");
+      if (response.data) {
+        onLogin(response.data); // Przekazuje dane użytkownika do komponentu App
       }
+    } catch (error) {
+      console.error("Login failed:", error.response?.data || error.message);
     }
   };
+
+  // reszta komponentu pozostaje bez zmian
 
   return (
     <section className="h-full bg-neutral-200 dark:bg-neutral-700">
@@ -120,4 +120,5 @@ const LoginPage = ({ onLogin }) => {
     </section>
   );
 };
+
 export default LoginPage;
