@@ -23,8 +23,11 @@ const LoginPage = ({ onLogin }) => {
         email,
         password,
       });
-      if (response.data) {
-        onLogin(response.data); // Przekazuje dane użytkownika do komponentu App
+      console.log("Response data:", response.data);
+      if (response.data && response.data.user) {
+        onLogin(response.data.user); // Teraz przekazujesz dane użytkownika do funkcji onLogin
+      } else {
+        console.error("No user data in response");
       }
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);

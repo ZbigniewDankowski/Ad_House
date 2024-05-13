@@ -1,11 +1,19 @@
-// src/App.js
 import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import LoginPage from "./Pages/LoginPage";
 import UserPanel from "./Pages/User_Panel";
+import AdminLogin from "./Pages/AdminLogin";
+import AdminPanel from "./Pages/AdminPanel";
 
-// src/App.js
 function App() {
   const [user, setUser] = useState(null);
+  const [admin, setAdmin] = useState(null);
 
   const handleLogin = (userData) => {
     setUser({
@@ -15,11 +23,68 @@ function App() {
       email: userData.email,
     });
   };
+  const handleAdminLogin = (adminData) => {
+    setAdmin({
+      admin_id: adminData.user_id, // Przykładowy identyfikator użytkownika
+      name: adminData.name,
+      surname: adminData.surname,
+      email: adminData.email,
+    });
+  };
 
   return (
-    <div className="App">
-      {!user ? <LoginPage onLogin={handleLogin} /> : <UserPanel user={user} />}
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route
+            path="/login"
+            element={
+              user ? (
+                <Navigate to="/panel" />
+              ) : (
+                <LoginPage onLogin={handleLogin} />
+              )
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              admin ? (
+                <Navigate to="/adminpanel" />
+              ) : (
+                <AdminLogin onAdminLogin={handleAdminLogin} />
+              )
+            }
+          />
+          <Route
+            path="/adminpanel"
+            element={
+              admin ? <AdminPanel admin={admin} /> : <Navigate to="/admin" />
+            }
+          />
+          <Route
+            path="/panel"
+            element={
+              user ? <UserPanel user={user} /> : <Navigate to="/login" />
+            }
+          />
+          <Route
+            path="/"
+            element={user ? <Navigate to="/panel" /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/admin/register"
+            element={
+              admin ? (
+                <Navigate to="/admin/register" />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

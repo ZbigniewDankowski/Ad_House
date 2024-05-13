@@ -1,24 +1,17 @@
 // Pages/User_Panel.js
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 
 const UserPanel = ({ user }) => {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    if (user && user.user_id) {
-      const fetchUserData = async () => {
-        try {
-          const response = await axios.get(
-            `http://localhost:8000/user/${user.user_id}`
-          );
-          setUserData(response.data);
-        } catch (error) {
-          console.error("Błąd pobierania danych użytkownika:", error);
-        }
-      };
-
-      fetchUserData();
+    if (user) {
+      setUserData({
+        name: user.name,
+        surname: user.surname,
+        email: user.email,
+        // Możesz dodać więcej pól jeśli są dostępne i potrzebne
+      });
     }
   }, [user]);
 
