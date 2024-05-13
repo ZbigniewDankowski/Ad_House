@@ -3,14 +3,14 @@ import { useNavigate, Navigate } from "react-router-dom";
 
 const AdminPanel = ({ admin }) => {
   const [adminData, setAdminData] = useState(null);
+  const navigate = useNavigate();
 
   const registerForm = () => {
-    <Navigate to="/register" />;
+    navigate("/register");
   };
 
   useEffect(() => {
     if (admin) {
-      console.log("PPanel");
       setAdminData({
         name: admin.name,
         surname: admin.surname,

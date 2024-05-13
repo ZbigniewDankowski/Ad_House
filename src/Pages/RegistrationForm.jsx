@@ -1,9 +1,78 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 const RegistrationForm = () => {
-  const handleSubmit = (event) => {
+  const logo = require("../assets/logo.png");
+
+  const [formData, setFormData] = useState({
+    imie: "",
+    nazwisko: "",
+    email: "",
+    haslo: "",
+    powtorzHaslo: "",
+    numerBloku: "",
+    numerKlatki: "",
+    numerMieszkania: "",
+    telefon: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevState) => {
+      const updatedState = {
+        ...prevState,
+        [name]: value,
+      };
+
+      // Sprawdzanie zgodności haseł jeśli zmieniane jest pole hasło lub powtórz hasło
+      if (name === "haslo" || name === "powtorzHaslo") {
+        if (
+          updatedState.haslo &&
+          updatedState.powtorzHaslo &&
+          updatedState.haslo !== updatedState.powtorzHaslo
+        ) {
+          updatedState.passwordError = "Hasła nie są identyczne!";
+        } else {
+          updatedState.passwordError = "";
+        }
+      }
+
+      return updatedState;
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    console.log(formData);
     event.preventDefault();
-    // Handle the registration logic here
+
+    // Opcjonalnie sprawdź, czy hasła są zgodne przed wysłaniem danych
+    if (formData.haslo !== formData.powtorzHaslo) {
+      alert("Hasła nie są identyczne!");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/register_new_user/",
+        {
+          imie: formData.imie,
+          nazwisko: formData.nazwisko,
+          email: formData.email,
+          haslo: formData.haslo,
+          numer_bloku: formData.numerBloku,
+          numer_klatki: formData.numerKlatki,
+          numer_mieszkania: formData.numerMieszkania,
+          telefon: formData.telefon, // To pole jest opcjonalne
+        }
+      );
+      console.log("Rejestracja zakończona pomyślnie:", response.data);
+      // Możesz przekierować użytkownika do innego widoku
+    } catch (error) {
+      console.error(
+        "Błąd rejestracji:",
+        error.response ? error.response.data : error.message
+      );
+    }
   };
 
   return (
@@ -16,11 +85,7 @@ const RegistrationForm = () => {
                 <div className="px-4 md:px-0 lg:w-6/12">
                   <div className="md:mx-6 md:p-12">
                     <div className="text-center">
-                      <img
-                        className="mx-auto w-64"
-                        src="/path-to-your-logo.png"
-                        alt="logo"
-                      />
+                      <img className="mx-auto w-64" src={logo} alt="logo" />
                       <h4 className="mb-12 mt-1 pb-1 text-xl font-semibold">
                         Zarejestruj się w AdHouse
                       </h4>
@@ -36,8 +101,10 @@ const RegistrationForm = () => {
                         </label>
                         <input
                           type="text"
-                          id="firstName"
-                          name="firstName"
+                          id="imie"
+                          name="imie"
+                          value={formData.imie}
+                          onChange={handleChange}
                           required
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         />
@@ -52,8 +119,10 @@ const RegistrationForm = () => {
                         </label>
                         <input
                           type="text"
-                          id="lastName"
-                          name="lastName"
+                          id="nazwisko"
+                          name="nazwisko"
+                          value={formData.nazwisko}
+                          onChange={handleChange}
                           required
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         />
@@ -70,6 +139,8 @@ const RegistrationForm = () => {
                           type="email"
                           id="email"
                           name="email"
+                          value={formData.email}
+                          onChange={handleChange}
                           required
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         />
@@ -84,8 +155,10 @@ const RegistrationForm = () => {
                         </label>
                         <input
                           type="password"
-                          id="password"
-                          name="password"
+                          id="haslo"
+                          name="haslo"
+                          value={formData.haslo}
+                          onChange={handleChange}
                           required
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         />
@@ -100,8 +173,10 @@ const RegistrationForm = () => {
                         </label>
                         <input
                           type="password"
-                          id="repeatPassword"
-                          name="repeatPassword"
+                          id="powtorzHaslo"
+                          name="powtorzHaslo"
+                          value={formData.powtorzHaslo}
+                          onChange={handleChange}
                           required
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         />
@@ -116,8 +191,10 @@ const RegistrationForm = () => {
                         </label>
                         <input
                           type="text"
-                          id="blockNumber"
-                          name="blockNumber"
+                          id="numerBloku"
+                          name="numerBloku"
+                          value={formData.numerBloku}
+                          onChange={handleChange}
                           required
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         />
@@ -132,8 +209,10 @@ const RegistrationForm = () => {
                         </label>
                         <input
                           type="text"
-                          id="staircaseNumber"
-                          name="staircaseNumber"
+                          id="numerKlatki"
+                          name="numerKlatki"
+                          value={formData.numerKlatki}
+                          onChange={handleChange}
                           required
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         />
@@ -148,8 +227,10 @@ const RegistrationForm = () => {
                         </label>
                         <input
                           type="text"
-                          id="apartmentNumber"
-                          name="apartmentNumber"
+                          id="numerMieszkania"
+                          name="numerMieszkania"
+                          value={formData.numerMieszkania}
+                          onChange={handleChange}
                           required
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         />
@@ -164,8 +245,10 @@ const RegistrationForm = () => {
                         </label>
                         <input
                           type="tel"
-                          id="phone"
-                          name="phone"
+                          id="telefon"
+                          name="telefon"
+                          value={formData.telefon}
+                          onChange={handleChange}
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         />
                       </div>

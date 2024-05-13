@@ -10,6 +10,7 @@ import LoginPage from "./Pages/LoginPage";
 import UserPanel from "./Pages/User_Panel";
 import AdminLogin from "./Pages/AdminLogin";
 import AdminPanel from "./Pages/AdminPanel";
+import RegistrationForm from "./Pages/RegistrationForm";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -73,13 +74,9 @@ function App() {
             element={user ? <Navigate to="/panel" /> : <Navigate to="/login" />}
           />
           <Route
-            path="/admin/register"
+            path="/register"
             element={
-              admin ? (
-                <Navigate to="/admin/register" />
-              ) : (
-                <Navigate to="/login" />
-              )
+              admin ? <RegistrationForm /> : <Navigate to="/admin_panel" />
             }
           />
         </Routes>
