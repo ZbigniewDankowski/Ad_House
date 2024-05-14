@@ -42,6 +42,15 @@ class UserCreate(BaseModel):
     numer_mieszkania: str
     telefon: Optional[str] = None  
 
+class UpdateUserModel(BaseModel):
+    imie: str
+    nazwisko: str
+    email: str
+    numer_bloku: str
+    numer_klatki: str
+    numer_mieszkania: str
+    telefon: str = Field(default=None)  # Telefon jest opcjonalny    
+
 
 
 # Hasłowanie haseł
@@ -51,13 +60,17 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 @app.post("/login/")
 async def login(user: UserLogin):
     user_in_db = users.find_one({"email": user.email})
-    if user_in_db and pwd_context.verify(user.password, user_in_db["password"]):
+    if user_in_db and pwd_context.verify(user.password, user_in_db.get("haslo", "")):
         # Nie zwracaj hasła ani innych wrażliwych danych
         user_data = {
             "user_id": str(user_in_db["_id"]),  # Przekształć ObjectId na string
-            "name": user_in_db.get("name"),
-            "surname": user_in_db.get("surname"),
-            "email": user_in_db.get("email")
+            "imie": user_in_db.get("imie"),
+            "nazwisko": user_in_db.get("nazwisko"),
+            "email": user_in_db.get("email"),
+            "numer_bloku": user_in_db.get("numer_bloku"),
+            "numer_klatki": user_in_db.get("numer_klatki"),
+            "numer_mieszkania": user_in_db.get("numer_mieszkania"),
+            "telefon": user_in_db.get("telefon"),
         }
         return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "Login successful", "user": user_data})
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid email or password")
@@ -69,8 +82,8 @@ async def login(user: UserLogin):
         # Nie zwracaj hasła ani innych wrażliwych danych
         user_data = {
             "user_id": str(user_in_db["_id"]),  # Przekształć ObjectId na string
-            "name": user_in_db.get("name"),
-            "surname": user_in_db.get("surname"),
+            "imie": user_in_db.get("imie"),
+            "nazwisko": user_in_db.get("nazwisko"),
             "email": user_in_db.get("email")
         }
         return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "Login successful", "user": user_data})
@@ -91,21 +104,19 @@ async def register_new_user(user: UserCreate):
     result = users.insert_one(user_dict)
     if result.inserted_id:
         return user_dict
-
     raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Registration failed")
 
-# @app.post("/register_new_user/")
-# async def register_user(user: UserCreate):
-#     if users.find_one({"email": user.email}):
-#         raise HTTPException(status_code=400, detail="Email already registered")
+@app.post("/update_user/")
+async def update_user(user_data: UpdateUserModel):
+    # Wyszukanie użytkownika i aktualizacja danych
+    update_result = users.update_one(
+        {"email": user_data.email},
+        {"$set": user_data.model_dump()}
+    )
+    if update_result.modified_count == 0:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
-#     user_dict = user.model_dump(by_alias=True)  # Użyj aliasów
-#     user_dict.update({"haslo": pwd_context.hash(user.haslo)})
-#     result = users.insert_one(user_dict)
-
-#     # Przygotowanie odpowiedzi z wykorzystaniem modelu Pydantic
-#     user_data = UserResponse(id=result.inserted_id, name=user_dict['imie'], email=user_dict['email'])
-#     return user_data.model_dump()
+    return {"message": "User updated successfully", "updated_count": update_result.modified_count}
 
 
 

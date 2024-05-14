@@ -23,6 +23,7 @@ const LoginPage = ({ onLogin }) => {
         email,
         password,
       });
+      console.log(response.data.user);
       if (response.data && response.data.user) {
         onLogin(response.data.user); // Teraz przekazujesz dane użytkownika do funkcji onLogin
       } else {

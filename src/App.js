@@ -4,7 +4,6 @@ import {
   Routes,
   Route,
   Navigate,
-  useNavigate,
 } from "react-router-dom";
 import LoginPage from "./Pages/LoginPage";
 import UserPanel from "./Pages/User_Panel";
@@ -19,9 +18,13 @@ function App() {
   const handleLogin = (userData) => {
     setUser({
       user_id: userData.user_id, // Przykładowy identyfikator użytkownika
-      name: userData.name,
-      surname: userData.surname,
+      imie: userData.imie,
+      nazwisko: userData.nazwisko,
       email: userData.email,
+      numer_bloku: userData.numer_bloku,
+      numer_klatki: userData.numer_klatki,
+      numer_mieszkania: userData.numer_mieszkania,
+      telefon: userData.telefon,
     });
   };
   const handleAdminLogin = (adminData) => {
