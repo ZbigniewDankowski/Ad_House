@@ -16,6 +16,9 @@ const RegistrationForm = () => {
     telefon: "",
   });
 
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevState) => {
@@ -42,7 +45,6 @@ const RegistrationForm = () => {
   };
 
   const handleSubmit = async (event) => {
-    console.log(formData);
     event.preventDefault();
 
     // Opcjonalnie sprawdź, czy hasła są zgodne przed wysłaniem danych
@@ -65,13 +67,26 @@ const RegistrationForm = () => {
           telefon: formData.telefon, // To pole jest opcjonalne
         }
       );
+
       console.log("Rejestracja zakończona pomyślnie:", response.data);
-      // Możesz przekierować użytkownika do innego widoku
+      setFormData({
+        imie: "",
+        nazwisko: "",
+        email: "",
+        haslo: "",
+        powtorzHaslo: "",
+        numerBloku: "",
+        numerKlatki: "",
+        numerMieszkania: "",
+        telefon: "",
+      });
+      setShowSuccessModal(true);
     } catch (error) {
       console.error(
         "Błąd rejestracji:",
         error.response ? error.response.data : error.message
       );
+      setShowErrorModal(true);
     }
   };
 
@@ -266,6 +281,42 @@ const RegistrationForm = () => {
                         </button>
                       </div>
                     </form>
+                    {showSuccessModal && (
+                      <div className="fixed inset-0 bg-transparent bg-opacity-50 flex justify-center items-center">
+                        <div className="bg-white p-6 rounded shadow-lg max-w-sm w-full">
+                          <button
+                            onClick={() => setShowSuccessModal(false)}
+                            className="float-right text-lg font-semibold"
+                          >
+                            &times;
+                          </button>
+                          <p className="text-xl font-semibold text-green-500">
+                            Sukces!
+                          </p>
+                          <p>Rejestracja użytkownika zakończona pomyślnie!</p>
+                        </div>
+                      </div>
+                    )}
+
+                    {showErrorModal && (
+                      <div className="fixed inset-0 bg-transparent bg-opacity-50 flex justify-center items-center">
+                        <div className="bg-white p-6 rounded shadow-lg max-w-sm w-full">
+                          <button
+                            onClick={() => setShowErrorModal(false)}
+                            className="float-right text-lg font-semibold"
+                          >
+                            &times;
+                          </button>
+                          <p className="text-xl font-semibold text-red-500">
+                            Błąd!
+                          </p>
+                          <p>
+                            Wystąpił błąd podczas rejestracji. Sprawdź
+                            poprawność danych!
+                          </p>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div
