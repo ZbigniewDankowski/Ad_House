@@ -60,7 +60,17 @@ const AdminPanel = ({ admin }) => {
         </div>
         <div className="bg-blue-700 p-2 rounded shadow-md">
           {selectedMenu === "Mieszkancy" && (
-            <p>Tu będą informacje o mieszkańcach</p>
+            <div>
+              <p>Tu będą informacje o mieszkańcach</p>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/register_new_user/");
+                }}
+              >
+                Zarejestruj użytkownika
+              </button>
+            </div>
           )}
           {selectedMenu === "Księgowosc" && <p>Tu będą informacje księgowe.</p>}
           {selectedMenu === "Media" && <p>Tu będą informacje o mediach</p>}

@@ -77,7 +77,7 @@ function App() {
             element={user ? <Navigate to="/panel" /> : <Navigate to="/login" />}
           />
           <Route
-            path="/register"
+            path="/register_new_user"
             element={
               admin ? <RegistrationForm /> : <Navigate to="/admin_panel" />
             }
