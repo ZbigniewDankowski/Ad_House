@@ -24,6 +24,7 @@ const AdminLogin = ({ onAdminLogin }) => {
         password,
       });
       console.log("Response data:", response.data);
+      console.log(response.data.user);
       if (response.data && response.data.user) {
         onAdminLogin(response.data.user); // Teraz przekazujesz dane użytkownika do funkcji onLogin
       } else {

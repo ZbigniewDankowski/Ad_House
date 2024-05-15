@@ -9,7 +9,12 @@ router = APIRouter()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # Konfiguracja klienta MongoDB
-client = MongoClient("mongodb://localhost:27017/")
+# client = MongoClient("mongodb://localhost:27017/")
+# db = client["AdHouse"]  # Nazwa bazy danych
+# users = db["Users"]  # Kolekcja
+# admin = db["Admin"]
+
+client = MongoClient("mongodb+srv://Admin:admin@mongodb.mockvji.mongodb.net/?retryWrites=true&w=majority&appName=MongoDB")
 db = client["AdHouse"]  # Nazwa bazy danych
 users = db["Users"]  # Kolekcja
 admin = db["Admin"]
@@ -39,8 +44,9 @@ async def login(user: UserLogin):
         # Nie zwracaj hasła ani innych wrażliwych danych
         user_data = {
             "user_id": str(user_in_db["_id"]),  # Przekształć ObjectId na string
-            "imie": user_in_db.get("imie"),
-            "nazwisko": user_in_db.get("nazwisko"),
+            "name": user_in_db.get("name"),
+            "surname": user_in_db.get("surname"),
+            "password": user_in_db.get("password"),
             "email": user_in_db.get("email")
         }
         return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "Login successful", "user": user_data})
