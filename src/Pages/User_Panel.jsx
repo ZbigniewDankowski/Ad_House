@@ -4,7 +4,7 @@ import axios from "axios";
 
 const UserPanel = ({ user }) => {
   console.log(user);
-  const [selectedMenu, setSelectedMenu] = useState("userData");
+  const [selectedMenu, setSelectedMenu] = useState("start");
   const [isEditing, setIsEditing] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -26,19 +26,20 @@ const UserPanel = ({ user }) => {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    console.log(formData);
-    try {
-      // Zakładając, że masz endpoint do aktualizacji danych użytkownika
-      const response = await axios.post(
-        "http://localhost:8000/update_user/",
-        formData
-      );
-      setIsEditing(false);
-      alert("Dane użytkownika zaktualizowane pomyślnie!");
-    } catch (error) {
-      console.error("Błąd aktualizacji danych:", error);
-      alert("Nie udało się zaktualizować danych użytkownika.");
+    if (isEditing) {
+      event.preventDefault();
+      try {
+        // Zakładając, że masz endpoint do aktualizacji danych użytkownika
+        const response = await axios.post(
+          "http://localhost:8000/update_user/",
+          formData
+        );
+        setIsEditing(false);
+        alert("Dane użytkownika zaktualizowane pomyślnie!");
+      } catch (error) {
+        console.error("Błąd aktualizacji danych:", error);
+        alert("Nie udało się zaktualizować danych użytkownika.");
+      }
     }
   };
 
@@ -62,7 +63,10 @@ const UserPanel = ({ user }) => {
               className={`p-4 hover:bg-blue-700 cursor-pointer ${
                 selectedMenu === item.key ? "bg-blue-700" : ""
               }`}
-              onClick={() => setSelectedMenu(item.key)}
+              onClick={() => {
+                setSelectedMenu(item.key);
+                setIsEditing(false);
+              }}
             >
               {item.label}
             </li>
@@ -123,7 +127,10 @@ const UserPanel = ({ user }) => {
                         <button
                           type="button"
                           className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                          onClick={() => setIsEditing(true)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setIsEditing(true);
+                          }}
                         >
                           Zmień
                         </button>
