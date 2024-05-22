@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import logo from "../assets/logo.png"; // Asumuję, że logo jest importowane w ten sposób.
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Nieruchomosci from "./Nieruchomosci";
 
 const AdminPanel = ({ admin }) => {
   console.log(admin);
   const [selectedMenu, setSelectedMenu] = useState("start");
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
+  const [activeComponent, setActiveComponent] = useState(null);
 
   const menuItems = [
     { key: "start", label: "Start" },
@@ -53,12 +55,12 @@ const AdminPanel = ({ admin }) => {
       <div className="flex-grow p-10">
         <h1 className="text-xl font-bold mb-4">
           Witaj
-          {" " + admin.name} {admin.surname}
+          {" " + admin.imie} {admin.nazwisko}
         </h1>
         <div className="flex justify-between items-center mb-6">
           <div></div>
         </div>
-        <div className="bg-blue-700 p-2 rounded shadow-md">
+        <div className=" p-2 rounded shadow-md">
           {selectedMenu === "Mieszkancy" && (
             <div>
               <p>Tu będą informacje o mieszkańcach</p>
@@ -70,6 +72,15 @@ const AdminPanel = ({ admin }) => {
               >
                 Zarejestruj użytkownika
               </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActiveComponent(<Nieruchomosci />);
+                }}
+              >
+                Pokaż szczegóły nieruchomości
+              </button>
+              <div>{activeComponent}</div>
             </div>
           )}
           {selectedMenu === "Księgowosc" && <p>Tu będą informacje księgowe.</p>}

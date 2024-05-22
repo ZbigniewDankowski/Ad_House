@@ -3,7 +3,7 @@ import { TEInput, TERipple } from "tw-elements-react";
 import axios from "axios";
 
 const AdminLogin = ({ onAdminLogin }) => {
-  const logo = require("../assets/logo.png");
+  const logo = require("../assets/new_logo.png");
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,66 +35,54 @@ const AdminLogin = ({ onAdminLogin }) => {
     }
   };
   return (
-    <section className="h-full bg-neutral-200 dark:bg-neutral-700">
-      <div className="container h-full p-10">
-        <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
-          <div className="w-full">
-            <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
-              <div className="g-0 lg:flex lg:flex-wrap justify-center">
-                {/* <!-- Left column container--> */}
-                <div className="px-4 md:px-0 lg:w-6/12">
-                  <div className="md:mx-6 md:p-12">
-                    {/* <!--Logo--> */}
-                    <div className="text-center">
-                      <img className="mx-auto w-64" src={logo} alt="logo" />
-                      <h4 className="mb-12 mt-1 pb-1 text-xl font-semibold">
-                        Panel logowania administratora
-                      </h4>
-                    </div>
-
-                    <form onSubmit={handleSubmit}>
-                      <p className="m-4 font-bold">Zaloguj się</p>
-                      {/* <!--Username input--> */}
-                      <TEInput
-                        type="email"
-                        label="E-mail"
-                        className="mb-4"
-                        onChange={handle_email}
-                      ></TEInput>
-
-                      {/* <!--Password input--> */}
-                      <TEInput
-                        type="password"
-                        label="Hasło"
-                        className="mb-4"
-                        onChange={handle_password}
-                      ></TEInput>
-
-                      {/* <!--Submit button--> */}
-                      <div className="mb-12 pb-1 pt-1 text-center">
-                        <TERipple rippleColor="light" className="w-full">
-                          <button
-                            className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
-                            type="submit"
-                            style={{
-                              background:
-                                "linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)",
-                            }}
-                          >
-                            Zaloguj się
-                          </button>
-                        </TERipple>
-
-                        {/* <!--Forgot password link--> */}
-                      </div>
-
-                      {/* <!--Register button--> */}
-                    </form>
-                  </div>
-                </div>
+    <section className="h-screen flex bg-gradient-to-b from-logo_bg from-60% to-letter_color">
+      <div className="w-2/3 h-3/4 my-auto mx-10flex flex-col items-center justify-center">
+        <div className="w-full h-full flex flex-wrap flex-col p-6 mx-auto">
+          <div className="p-6 w-2/3 h-full mx-auto bg-white border-letter_color border-2 flex flex-col justify-center">
+            <h2 className="text-center text-4xl font-bold mb-6">Zaloguj się</h2>
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-6 w-2/3 mx-auto mt-8"
+            >
+              <div>
+                <label className="block mb-2 font-semibold" htmlFor="email">
+                  E-mail
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  className="w-full p-2 border-2 rounded-md border-letter_color"
+                  onChange={handle_email}
+                />
               </div>
-            </div>
+              <div className="pb-10">
+                <label className="block mb-2 font-semibold" htmlFor="password">
+                  Hasło
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  className="w-full p-2 border-2 rounded-md border-letter_color"
+                  onChange={handle_password}
+                />
+              </div>
+              <button
+                type="submit"
+                className="block w-1/3 mx-auto p-2 text-letter_color bg-black rounded-lg"
+              >
+                Zaloguj
+              </button>
+            </form>
           </div>
+        </div>
+      </div>
+
+      <div className="w-2/3 flex flex-col items-center justify-start">
+        <img className="mb-4 w-80 p-10" src={logo} alt="logo" />
+        <div className="m-20 p-4 border-2 border-letter_color ">
+          <p className="text-xl text-letter_color p-6">
+            Panel logowania administratora
+          </p>
         </div>
       </div>
     </section>

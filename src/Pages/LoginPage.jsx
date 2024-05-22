@@ -4,7 +4,7 @@ import { TEInput, TERipple } from "tw-elements-react";
 import axios from "axios";
 
 const LoginPage = ({ onLogin }) => {
-  const logo = require("../assets/logo.png");
+  const logo = require("../assets/new_logo.png");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

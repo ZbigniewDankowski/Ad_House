@@ -18,6 +18,7 @@ client = MongoClient("mongodb+srv://Admin:admin@mongodb.mockvji.mongodb.net/?ret
 db = client["AdHouse"]  # Nazwa bazy danych
 users = db["Users"]  # Kolekcja
 admin = db["Admin"]
+nieruchomosci = db["Nieruchomosci"]
 
 @router.post("/login/")
 async def login(user: UserLogin):
@@ -44,9 +45,8 @@ async def login(user: UserLogin):
         # Nie zwracaj hasła ani innych wrażliwych danych
         user_data = {
             "user_id": str(user_in_db["_id"]),  # Przekształć ObjectId na string
-            "name": user_in_db.get("name"),
-            "surname": user_in_db.get("surname"),
-            "password": user_in_db.get("password"),
+            "imie": user_in_db.get("imie"),
+            "nazwisko": user_in_db.get("nazwisko"),
             "email": user_in_db.get("email")
         }
         return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "Login successful", "user": user_data})
@@ -80,3 +80,13 @@ async def update_user(user_data: UpdateUserModel):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
     return {"message": "User updated successfully", "updated_count": update_result.modified_count}
+
+@router.get("/nieruchomosci/")
+async def get_nieruchomosci():
+    try:
+        nieruchomosci_list = list(nieruchomosci.find())
+        for nieruchomosc in nieruchomosci_list:
+            nieruchomosc["_id"] = str(nieruchomosc["_id"])  # Konwersja ObjectId na string
+        return JSONResponse(status_code=status.HTTP_200_OK, content={"nieruchomosci": nieruchomosci_list})
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
