@@ -3,7 +3,6 @@ import logo from "../assets/logo.png"; // Asumuję, że logo jest importowane w 
 import axios from "axios";
 
 const UserPanel = ({ user }) => {
-  console.log(user);
   const [selectedMenu, setSelectedMenu] = useState("start");
   const [isEditing, setIsEditing] = useState(false);
 

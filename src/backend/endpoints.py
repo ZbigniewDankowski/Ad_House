@@ -39,7 +39,7 @@ async def login(user: UserLogin):
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid email or password")
 
 @router.post("/admin_login/")
-async def login(user: UserLogin):
+async def loginAdmin(user: UserLogin):
     user_in_db = admin.find_one({"email": user.email})
     if user_in_db and pwd_context.verify(user.password, user_in_db.get("password", "")):
         # Nie zwracaj hasła ani innych wrażliwych danych

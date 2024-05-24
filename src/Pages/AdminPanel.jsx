@@ -1,35 +1,69 @@
 import React, { useState } from "react";
-import logo from "../assets/logo.png"; // Asumuję, że logo jest importowane w ten sposób.
+import logo from "../assets/new_logo.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Nieruchomosci from "./Nieruchomosci";
+import Wlasciciele from "./Wlasciciele";
+import Lokale from "./Lokale";
+import Zarzad from "./Zarzad";
+import Raporty from "./Raporty";
+import Start from "./Start";
 
 const AdminPanel = ({ admin }) => {
-  console.log(admin);
   const [selectedMenu, setSelectedMenu] = useState("start");
-  const [isEditing, setIsEditing] = useState(false);
+  const [activeComponentKey, setActiveComponentKey] = useState("start");
   const navigate = useNavigate();
-  const [activeComponent, setActiveComponent] = useState(null);
 
   const menuItems = [
     { key: "start", label: "Start" },
-    { key: "Mieszkancy", label: "Wspólnota" },
-    { key: "Księgowosc", label: "Księgowość " },
-    { key: "Media", label: "Media" },
-    { key: "Dokumenty", label: "Dokumenty" },
-    { key: "Uchwaly ", label: "Uchwały " },
-    { key: "Zgloszenia ", label: "Zgłoszenia " },
-    { key: "Sprawozdania ", label: "Sprawozdania " },
+    {
+      key: "Wspólnota",
+      label: "Wspólnota",
+      submenu: [
+        { key: "nieruchomosci", label: "Dane nieruchomości" },
+        { key: "lokale", label: "Dane lokali" },
+        { key: "wlasciciele", label: "Właściciele" },
+        { key: "zarzad", label: "Zarząd wspólnoty" },
+        { key: "raporty", label: "Raporty" },
+      ],
+    },
+    { key: "Księgowosc", label: "Księgowość", submenu: [] },
+    { key: "Media", label: "Media", submenu: [] },
+    { key: "Dokumenty", label: "Dokumenty", submenu: [] },
+    { key: "Uchwaly", label: "Uchwały", submenu: [] },
+    { key: "Zgloszenia", label: "Zgłoszenia", submenu: [] },
+    { key: "Sprawozdania", label: "Sprawozdania", submenu: [] },
   ];
+  const selectedSubmenu =
+    menuItems.find((item) => item.key === selectedMenu)?.submenu || [];
+
+  const renderComponent = () => {
+    switch (activeComponentKey) {
+      case "start":
+        return <Start />;
+      case "nieruchomosci":
+        return <Nieruchomosci />;
+      case "lokale":
+        return <Lokale />;
+      case "wlasciciele":
+        return <Wlasciciele />;
+      case "zarzad":
+        return <Zarzad />;
+      case "raporty":
+        return <Raporty />;
+      default:
+        return <div>Nie udało się załadować komponentu</div>;
+    }
+  };
 
   return (
-    <div className="flex h-screen bg-gray-200">
-      <div className="flex flex-col w-44 bg-blue-800 text-white">
-        <div className="p-5">
-          <img className="mx-auto w-64" src={logo} alt="logo" />
-        </div>
-        <div className="flex flex-col justify-between flex-grow">
-          <ul>
+    <div className="flex h-screen bg-gradient-to-br from-logo_bg to-letter_color max-w-full">
+      <div className="flex w-full">
+        <div className="w-44 flex flex-col text-letter_color bg-logo_bg">
+          <div className="p-5 border-b border-letter_color">
+            <img className="mx-auto" src={logo} alt="Logo" />
+          </div>
+          <ul className="flex-grow">
             {menuItems.map((item) => (
               <li
                 key={item.key}
@@ -38,64 +72,60 @@ const AdminPanel = ({ admin }) => {
                 }`}
                 onClick={() => {
                   setSelectedMenu(item.key);
-                  setIsEditing(false);
+                  if (item.submenu && item.submenu.length > 0) {
+                    setActiveComponentKey(item.submenu[0].key); // Ustaw pierwszy element submenu jako aktywny
+                  } else {
+                    setActiveComponentKey(item.key); // Jeśli nie ma submenu, ustaw klucz elementu jako aktywny
+                  }
                 }}
               >
                 {item.label}
               </li>
             ))}
           </ul>
-          <div className="text-center p-4">
-            <button onClick={() => navigate("/admin")}>Wyloguj się</button>
-          </div>
         </div>
-      </div>
-
-      {/* Content Area */}
-      <div className="flex-grow p-10">
-        <h1 className="text-xl font-bold mb-4">
-          Witaj
-          {" " + admin.imie} {admin.nazwisko}
-        </h1>
-        <div className="flex justify-between items-center mb-6">
-          <div></div>
-        </div>
-        <div className=" p-2 rounded shadow-md">
-          {selectedMenu === "Mieszkancy" && (
-            <div>
-              <p>Tu będą informacje o mieszkańcach</p>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate("/register_new_user/");
-                }}
-              >
-                Zarejestruj użytkownika
-              </button>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  setActiveComponent(<Nieruchomosci />);
-                }}
-              >
-                Pokaż szczegóły nieruchomości
-              </button>
-              <div>{activeComponent}</div>
+        <div className="flex-grow">
+          <div className="w-full h-1/3 flex flex-col justify-between align-middle">
+            <div className="w-full h-16 flex flex-row justify-end">
+              <p className="block my-auto font-bold text-white mr-10">
+                {admin.imie} {admin.nazwisko}
+              </p>
+              <div className="p-4 text-center">
+                <button
+                  onClick={() => navigate("/admin")}
+                  className="text-letter_color bg-black p-2 rounded"
+                >
+                  Wyloguj się
+                </button>
+              </div>
             </div>
-          )}
-          {selectedMenu === "Księgowosc" && <p>Tu będą informacje księgowe.</p>}
-          {selectedMenu === "Media" && <p>Tu będą informacje o mediach</p>}
-          {selectedMenu === "Finanse" && <p>Tu będą informacje o finansach.</p>}
-          {selectedMenu === "Dokumenty" && (
-            <p>Tu będą informacje o dokumentach.</p>
-          )}
-          {selectedMenu === "Uchwaly" && <p>Tu będą informacje o uchwałach.</p>}
-          {selectedMenu === "Zgloszenia" && (
-            <p>Tu będą informacje o zgłoszeniach.</p>
-          )}
-          {selectedMenu === "Sprawozdania" && (
-            <p>Tu będą informacje o sprawozdaniach.</p>
-          )}
+            {menuItems.find((item) => item.key === selectedMenu)?.submenu && (
+              <div className="w-3/4 h-16 bg-black px-6 mx-auto">
+                <ul className="w-full h-full flex flex-row justify-evenly text-letter_color bg-logo_bg text-center my-auto">
+                  {menuItems
+                    .find((item) => item.key === selectedMenu)
+                    .submenu.map((sub) => (
+                      <li
+                        key={sub.key}
+                        className={`cursor-pointer my-auto px-6 ${
+                          activeComponentKey === sub.key
+                            ? " border-b-2 border-letter_color"
+                            : "hover:border-b-2 border-letter_color"
+                        }`}
+                        onClick={() => {
+                          setActiveComponentKey(sub.key);
+                        }}
+                      >
+                        {sub.label}
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            )}
+          </div>
+          <div className="rounded shadow-md p-4 mt-28 over h-2/4">
+            {renderComponent()}
+          </div>
         </div>
       </div>
     </div>

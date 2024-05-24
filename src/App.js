@@ -30,8 +30,8 @@ function App() {
   const handleAdminLogin = (adminData) => {
     setAdmin({
       admin_id: adminData.user_id, // Przykładowy identyfikator użytkownika
-      name: adminData.name,
-      surname: adminData.surname,
+      imie: adminData.imie,
+      nazwisko: adminData.nazwisko,
       email: adminData.email,
     });
   };

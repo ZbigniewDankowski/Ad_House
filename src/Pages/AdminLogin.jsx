@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { TEInput, TERipple } from "tw-elements-react";
 import axios from "axios";
 
 const AdminLogin = ({ onAdminLogin }) => {
@@ -23,10 +22,8 @@ const AdminLogin = ({ onAdminLogin }) => {
         email,
         password,
       });
-      console.log("Response data:", response.data);
-      console.log(response.data.user);
       if (response.data && response.data.user) {
-        onAdminLogin(response.data.user); // Teraz przekazujesz dane użytkownika do funkcji onLogin
+        onAdminLogin(response.data.user);
       } else {
         console.error("No user data in response");
       }
