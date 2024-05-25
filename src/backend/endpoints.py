@@ -19,6 +19,7 @@ db = client["AdHouse"]  # Nazwa bazy danych
 users = db["Users"]  # Kolekcja
 admin = db["Admin"]
 nieruchomosci = db["Nieruchomosci"]
+lokale = db["Lokale"]
 
 @router.post("/login/")
 async def login(user: UserLogin):
@@ -88,5 +89,24 @@ async def get_nieruchomosci():
         for nieruchomosc in nieruchomosci_list:
             nieruchomosc["_id"] = str(nieruchomosc["_id"])  # Konwersja ObjectId na string
         return JSONResponse(status_code=status.HTTP_200_OK, content={"nieruchomosci": nieruchomosci_list})
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+    
+@router.get("/lokale/")
+async def get_lokale():
+    try:
+        lokale_list = list(lokale.find())
+        for lokal in lokale_list:
+            lokal["_id"] = str(lokal["_id"])  # Konwersja ObjectId na string
+        return JSONResponse(status_code=status.HTTP_200_OK, content={"lokale": lokale_list})
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+@router.get("/get_users/")
+async def get_users():
+    try:
+        users_list = list(users.find())
+        for user in users_list:
+            user["_id"] = str(user["_id"])  # Konwersja ObjectId na string
+        return JSONResponse(status_code=status.HTTP_200_OK, content={"users": users_list})
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))

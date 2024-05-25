@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const RegistrationForm = () => {
-  const logo = require("../assets/logo.png");
+  const logo = require("../assets/new_logo.png");
 
   const [formData, setFormData] = useState({
     imie: "",
@@ -68,7 +68,6 @@ const RegistrationForm = () => {
         }
       );
 
-      console.log("Rejestracja zakończona pomyślnie:", response.data);
       setFormData({
         imie: "",
         nazwisko: "",

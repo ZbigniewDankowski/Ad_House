@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import logo from "../assets/new_logo.png";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Nieruchomosci from "./Nieruchomosci";
 import Wlasciciele from "./Wlasciciele";
@@ -8,6 +7,7 @@ import Lokale from "./Lokale";
 import Zarzad from "./Zarzad";
 import Raporty from "./Raporty";
 import Start from "./Start";
+import Register from "./Register";
 
 const AdminPanel = ({ admin }) => {
   const [selectedMenu, setSelectedMenu] = useState("start");
@@ -51,13 +51,15 @@ const AdminPanel = ({ admin }) => {
         return <Zarzad />;
       case "raporty":
         return <Raporty />;
+      case "register":
+        return <Register />;
       default:
         return <div>Nie udało się załadować komponentu</div>;
     }
   };
 
   return (
-    <div className="flex h-screen bg-gradient-to-br from-logo_bg to-letter_color max-w-full">
+    <div className="flex h-screen bg-gradient-to-br from-logo_bg to-letter_color overflow-hidden">
       <div className="flex w-full">
         <div className="w-44 flex flex-col text-letter_color bg-logo_bg">
           <div className="p-5 border-b border-letter_color">
@@ -67,8 +69,10 @@ const AdminPanel = ({ admin }) => {
             {menuItems.map((item) => (
               <li
                 key={item.key}
-                className={`p-4 hover:bg-blue-700 cursor-pointer ${
-                  selectedMenu === item.key ? "bg-blue-700" : ""
+                className={`p-4 hover:bg-letter_color hover:text-logo_bg cursor-pointer ${
+                  selectedMenu === item.key
+                    ? "bg-letter_color text-logo_bg"
+                    : ""
                 }`}
                 onClick={() => {
                   setSelectedMenu(item.key);
@@ -100,7 +104,7 @@ const AdminPanel = ({ admin }) => {
               </div>
             </div>
             {menuItems.find((item) => item.key === selectedMenu)?.submenu && (
-              <div className="w-3/4 h-16 bg-black px-6 mx-auto">
+              <div className="w-3/4 h-16 bg-logo_bg px-6 mx-auto">
                 <ul className="w-full h-full flex flex-row justify-evenly text-letter_color bg-logo_bg text-center my-auto">
                   {menuItems
                     .find((item) => item.key === selectedMenu)
@@ -123,9 +127,19 @@ const AdminPanel = ({ admin }) => {
               </div>
             )}
           </div>
-          <div className="rounded shadow-md p-4 mt-28 over h-2/4">
+          <div className="rounded p-4 mt-2 over max-h-2/4">
             {renderComponent()}
           </div>
+          {activeComponentKey == "wlasciciele" ? (
+            <button
+              className="w-1/6 border-2 border-letter_color p-1 bg-logo_bg text-letter_color font-bold rounded-md mx-6"
+              onClick={() => {
+                setActiveComponentKey("register");
+              }}
+            >
+              Dodaj użytkownika
+            </button>
+          ) : null}
         </div>
       </div>
     </div>

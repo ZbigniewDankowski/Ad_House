@@ -2,8 +2,8 @@ import React from "react";
 
 const Start = () => {
   return (
-    <div className="w-full h-full border-2 border-black flex flex-wrap justify-evenly">
-      <div className="w-1/4 p-4 flex flex-col justify-evenly text-center text-black bg-white m-4">
+    <div className="w-full h-full flex flex-wrap justify-evenly">
+      <div className="w-1/4 p-4 flex flex-col justify-evenly text-center text-black bg-white border-2 border-logo_bg rounded-xl">
         <h1 className="font-bold p-6 text-2xl">Saldo</h1>
         <div className="flex-grow flex flex-col justify-evenly">
           <div>
@@ -17,7 +17,7 @@ const Start = () => {
         </div>
       </div>
 
-      <div className="w-1/4 p-4 flex flex-col justify-evenly text-center text-black bg-white m-4">
+      <div className="w-1/4 p-4 flex flex-col justify-evenly text-center text-black bg-white border-2 border-logo_bg rounded-xl">
         <h1 className="font-bold p-6 text-2xl">Zgłoszenia</h1>
         <div className="flex-grow flex flex-col justify-evenly">
           <div>
@@ -26,7 +26,7 @@ const Start = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/4 p-4 flex flex-col justify-evenly text-center text-black bg-white m-4">
+      <div className="w-1/4 p-4 flex flex-col justify-evenly text-center text-black bg-white border-2 border-logo_bg rounded-xl">
         <h1 className="font-bold p-6 text-2xl">Informacje</h1>
         <div className="flex-grow flex flex-col justify-evenly">
           <div>
