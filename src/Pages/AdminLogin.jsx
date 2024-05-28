@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Modal from "./Modal";
 
 const AdminLogin = ({ onAdminLogin }) => {
   const logo = require("../assets/new_logo.png");
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalStyle, setModalStyle] = useState("error");
 
   const handle_email = (e) => {
     setEmail(e.target.value);
@@ -24,11 +28,16 @@ const AdminLogin = ({ onAdminLogin }) => {
       });
       if (response.data && response.data.user) {
         onAdminLogin(response.data.user);
+        setModalOpen(false);
       } else {
         console.error("No user data in response");
       }
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);
+      setModalMessage(
+        "Nie udało się znaleźć użytkownika! Sprawdź poprawność danych logowania"
+      );
+      setModalOpen(true);
     }
   };
   return (
@@ -82,6 +91,12 @@ const AdminLogin = ({ onAdminLogin }) => {
           </p>
         </div>
       </div>
+      <Modal
+        isOpen={modalOpen}
+        message={modalMessage}
+        modal_style={modalStyle}
+        onClose={() => setModalOpen(false)}
+      />
     </section>
   );
 };

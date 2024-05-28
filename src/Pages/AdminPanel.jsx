@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import setAdmin from "../App.js";
 import logo from "../assets/new_logo.png";
 import { useNavigate } from "react-router-dom";
 import Nieruchomosci from "./Nieruchomosci";
@@ -12,7 +13,13 @@ import Register from "./Register";
 const AdminPanel = ({ admin }) => {
   const [selectedMenu, setSelectedMenu] = useState("start");
   const [activeComponentKey, setActiveComponentKey] = useState("start");
+
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    window.location.reload();
+    navigate("/admin"); // Przekierowanie na stronę logowania
+  };
 
   const menuItems = [
     { key: "start", label: "Start" },
@@ -96,7 +103,7 @@ const AdminPanel = ({ admin }) => {
               </p>
               <div className="p-4 text-center">
                 <button
-                  onClick={() => navigate("/admin")}
+                  onClick={handleLogout}
                   className="text-letter_color bg-black p-2 rounded"
                 >
                   Wyloguj się

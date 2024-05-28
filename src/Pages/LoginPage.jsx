@@ -1,11 +1,15 @@
 // Pages/LoginPage.js
 import React, { useState } from "react";
 import axios from "axios";
+import Modal from "./Modal";
 
 const LoginPage = ({ onLogin }) => {
   const logo = require("../assets/new_logo.png");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalStyle, setModalStyle] = useState("error");
 
   const handle_email = (e) => {
     setEmail(e.target.value);
@@ -24,11 +28,16 @@ const LoginPage = ({ onLogin }) => {
       });
       if (response.data && response.data.user) {
         onLogin(response.data.user); // Teraz przekazujesz dane użytkownika do funkcji onLogin
+        setModalOpen(false);
       } else {
-        console.error("No user data in response");
+        console.log("No user in database");
       }
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);
+      setModalMessage(
+        "Nie udało się znaleźć użytkownika! Sprawdź poprawność danych logowania"
+      );
+      setModalOpen(true);
     }
   };
 
@@ -84,6 +93,12 @@ const LoginPage = ({ onLogin }) => {
           </p>
         </div>
       </div>
+      <Modal
+        isOpen={modalOpen}
+        message={modalMessage}
+        modal_style={modalStyle}
+        onClose={() => setModalOpen(false)}
+      />
     </section>
   );
 };
