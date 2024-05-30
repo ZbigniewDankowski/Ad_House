@@ -20,6 +20,7 @@ users = db["Users"]  # Kolekcja
 admin = db["Admin"]
 nieruchomosci = db["Nieruchomosci"]
 lokale = db["Lokale"]
+board = db["Zarzad_Wspolnoty"]
 
 @router.post("/login/")
 async def login(user: UserLogin):
@@ -101,6 +102,7 @@ async def get_lokale():
         return JSONResponse(status_code=status.HTTP_200_OK, content={"lokale": lokale_list})
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+    
 @router.get("/get_users/")
 async def get_users():
     try:
@@ -110,3 +112,10 @@ async def get_users():
         return JSONResponse(status_code=status.HTTP_200_OK, content={"users": users_list})
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+    
+@router.get("/zarzad_wspolnoty/")
+async def query_all_zarzad_wspolnoty():
+    all_board_members = list(board.find())
+    for member in all_board_members:
+        member["_id"] = str(member["_id"])  # Konwersja ObjectId na string
+    return JSONResponse(status_code=status.HTTP_200_OK, content={"zarzad_wspolnoty": all_board_members})

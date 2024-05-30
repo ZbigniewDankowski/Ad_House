@@ -21,13 +21,13 @@ const Lokale = () => {
     return <div>Ładowanie danych...</div>;
   }
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-logo_bg border-2 border-logo_bg">
-        <thead className="bg-letter_color ">
+    <div className="max-h-[36rem]">
+      <table className="min-w-full divide-y divide-logo_bg border-2 border-logo_bg ">
+        <thead className="bg-letter_color sticky top-0 z-10 h-16">
           <tr>
             <th
               scope="col"
-              className="px-6 text-center text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4"
+              className="px-6 py-3 text-center text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4"
             >
               Numer mieszkania
             </th>
@@ -51,7 +51,7 @@ const Lokale = () => {
             </th>
           </tr>
         </thead>
-        <tbody className=" bg-gray-300 divide-x-2 divide-logo_bg divide-y-2 ">
+        <tbody className=" bg-gray-300 divide-x-2 divide-logo_bg divide-y-2">
           {lokale.map((lokal, index) => (
             <tr
               key={index}

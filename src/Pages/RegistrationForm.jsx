@@ -79,13 +79,11 @@ const RegistrationForm = () => {
         numerMieszkania: "",
         telefon: "",
       });
-      setShowSuccessModal(true);
     } catch (error) {
       console.error(
         "Błąd rejestracji:",
         error.response ? error.response.data : error.message
       );
-      setShowErrorModal(true);
     }
   };
 

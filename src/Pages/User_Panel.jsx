@@ -22,6 +22,7 @@ const UserPanel = ({ user }) => {
       ...prev,
       [name]: value,
     }));
+    return updatedState;
   };
 
   const handleSubmit = async (event) => {

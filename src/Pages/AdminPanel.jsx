@@ -134,18 +134,32 @@ const AdminPanel = ({ admin }) => {
               </div>
             )}
           </div>
-          <div className="rounded p-4 mt-2 over max-h-2/4">
+          <div className="rounded px-4 mt-10 over h-full max-h-[36rem] overflow-y-auto ">
+            {activeComponentKey == "register" ? (
+              <div className="w-full my-6 text-left">
+                <button
+                  className="w-1/6 border-2 border-letter_color p-1 bg-logo_bg text-letter_color font-bold rounded-md mr-6"
+                  onClick={() => {
+                    setActiveComponentKey("wlasciciele");
+                  }}
+                >
+                  Wróć
+                </button>
+              </div>
+            ) : null}
             {renderComponent()}
           </div>
           {activeComponentKey == "wlasciciele" ? (
-            <button
-              className="w-1/6 border-2 border-letter_color p-1 bg-logo_bg text-letter_color font-bold rounded-md mx-6"
-              onClick={() => {
-                setActiveComponentKey("register");
-              }}
-            >
-              Dodaj użytkownika
-            </button>
+            <div className="w-full my-6 text-right">
+              <button
+                className="w-1/6 border-2 border-letter_color p-1 bg-logo_bg text-letter_color font-bold rounded-md mr-6"
+                onClick={() => {
+                  setActiveComponentKey("register");
+                }}
+              >
+                Dodaj użytkownika
+              </button>
+            </div>
           ) : null}
         </div>
       </div>
