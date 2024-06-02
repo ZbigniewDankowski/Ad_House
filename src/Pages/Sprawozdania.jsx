@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-const Lokale = () => {
-  const [lokale, setLokale] = useState([]);
+const Sprawozdania = () => {
+  const [sprawozdania, setSprawozadania] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/lokale/");
-        setLokale(response.data.lokale);
-        console.log(response.data.lokale);
+        const response = await axios.get("http://localhost:8000/sprawozdania/");
+
+        setSprawozadania(response.data.sprawozdania);
       } catch (error) {
         console.error("Nie udało się pobrać danych:", error); // Możesz ustawić stan na pusty array lub odpowiednią wartość w przypadku błędu
       }
@@ -17,64 +17,74 @@ const Lokale = () => {
     fetchData();
   }, []); // Pusta tablica zależności oznacza, że efekt uruchomi się tylko raz po pierwszym renderowaniu
 
-  if (lokale.length === 0) {
+  if (sprawozdania.length === 0) {
     return <div>Ładowanie danych...</div>;
   }
   return (
-    <div className="max-h-[36rem]">
-      <table className="min-w-full divide-y divide-logo_bg border-2 border-logo_bg mb-3">
-        <thead className="bg-letter_color sticky top-0 z-10 h-16">
+    <div className="overflow-x-auto">
+      <h1 className="text-2xl text-white py-3 text-center font-bold">
+        Sprawozdania
+      </h1>
+      <table className="min-w-full divide-y divide-logo_bg border-2 border-logo_bg">
+        <thead className="bg-letter_color ">
           <tr>
             <th
               scope="col"
-              className="px-6 py-3 text-center text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4"
+              className="px-6 text-center text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4 "
             >
-              Numer mieszkania
+              Data dodania
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
             >
-              Powierzchnia mieszkania
+              Kategoria
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
             >
-              Liczba stanowisk garażowych
+              Link
             </th>
+
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
             >
-              Powierzchnia stanowisk garażowych
+              Uwagi
             </th>
           </tr>
         </thead>
-        <tbody className=" bg-gray-300 divide-x-2 divide-logo_bg divide-y-2">
-          {lokale.map((lokal, index) => (
+        <tbody className=" bg-gray-300 divide-x-2 divide-logo_bg divide-y-2 ">
+          {sprawozdania.map((sprawozdania, index) => (
             <tr
               key={index}
               className="even:bg-logo_bg even:text-letter_color text-logo_bg"
             >
               <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {lokal.Nr_Mieszkania}
+                {sprawozdania.Data_Dodania}
               </td>
               <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {lokal.Powierzchnia_Mieszkania}
+                {sprawozdania.Kategoria}
+              </td>
+              <td className="px-3 py-4 whitespace-nowrap text-center">
+                <a href={sprawozdania.Link} download={true} target="_blank">
+                  Podgląd
+                </a>
               </td>
               <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {lokal.Stanowisk_Garazowych}
-              </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {lokal.Powierzchnia_Garażowa}
+                {sprawozdania.Uwagi}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <button className="w-1/6 border-2 border-letter_color p-1 bg-logo_bg text-letter_color font-bold rounded-md mr-6 mt-6 ">
+        {" "}
+        Dodaj sprawozdanie
+      </button>
     </div>
   );
 };
 
-export default Lokale;
+export default Sprawozdania;

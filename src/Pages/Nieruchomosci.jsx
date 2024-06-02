@@ -29,74 +29,74 @@ const Nieruchomosci = () => {
           <tr>
             <th
               scope="col"
-              className="px-6 text-left text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4"
+              className="px-6 text-center text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4"
             >
               Województwo
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
             >
               Miasto
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
             >
               Kod Pocztowy
             </th>
 
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
             >
               Ulica
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
             >
               Nr. budynku
             </th>
             {/* <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
             >
               Typ budynku
             </th> */}
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
             >
               Pow. Całkowita
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
             >
               Pow. Mieszkalna
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
             >
               Pow. Części Wspólnej
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
             >
               Pow. Hali garażowej
             </th>
             {/* <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
             >
               Pow. Lokali Użytkowych
             </th> */}
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
             >
               Liczba Mieszkań
             </th>
@@ -108,41 +108,41 @@ const Nieruchomosci = () => {
               key={index}
               className="even:bg-logo_bg even:text-letter_color text-logo_bg"
             >
-              <td className="px-3 py-4 whitespace-nowrap font-bold ">
+              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
                 {nieruchomosc.Wojewodztwo}
               </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold ">
+              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
                 {nieruchomosc.Miasto}
               </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold ">
+              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
                 {nieruchomosc.Kod_Pocztowy}
               </td>
 
-              <td className="px-3 py-4 whitespace-nowrap font-bold ">
+              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
                 {nieruchomosc.Ulica}
               </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold ">
+              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
                 {nieruchomosc.Numer_Budynku}
               </td>
               {/* <td className="px-3 py-4 whitespace-nowrap font-bold ">
                 {nieruchomosc.Typ_Budynku}
               </td> */}
-              <td className="px-3 py-4 whitespace-nowrap font-bold ">
+              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
                 {nieruchomosc.Powierzchnia_Calkowita}
               </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold ">
+              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
                 {nieruchomosc.Powierzchnia_Mieszkalna}
               </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold ">
+              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
                 {nieruchomosc.Powierzchnia_Cz_Wspolnej}
               </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold ">
+              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
                 {nieruchomosc.Powierzchnia_Hal_Garazowej}
               </td>
               {/* <td className="px-3 py-4 whitespace-nowrap font-bold ">
                 {nieruchomosc.Powierzchnia_Lok_Uzytkowych}
               </td> */}
-              <td className="px-3 py-4 whitespace-nowrap font-bold ">
+              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
                 {nieruchomosc.Liczba_Mieszkan}
               </td>
             </tr>

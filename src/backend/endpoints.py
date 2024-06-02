@@ -21,6 +21,10 @@ admin = db["Admin"]
 nieruchomosci = db["Nieruchomosci"]
 lokale = db["Lokale"]
 board = db["Zarzad_Wspolnoty"]
+reports = db["Raporty"]
+resolutions = db["Uchwaly"]
+complaints = db["Zgloszenia"]
+statements = db["Sprawozdania"]
 
 @router.post("/login/")
 async def login(user: UserLogin):
@@ -119,3 +123,31 @@ async def query_all_zarzad_wspolnoty():
     for member in all_board_members:
         member["_id"] = str(member["_id"])  # Konwersja ObjectId na string
     return JSONResponse(status_code=status.HTTP_200_OK, content={"zarzad_wspolnoty": all_board_members})
+
+@router.get("/raporty/")
+async def query_all_raporty():
+    all_reports = list(reports.find())
+    for report in all_reports:
+        report["_id"] = str(report["_id"])  # Konwersja ObjectId na string
+    return JSONResponse(status_code=status.HTTP_200_OK, content={"raporty": all_reports})
+
+@router.get("/uchwaly/")
+async def query_all_uchwaly():
+    all_resolutions = list(resolutions.find())
+    for resolution in all_resolutions:
+        resolution["_id"] = str(resolution["_id"])  # Konwersja ObjectId na string
+    return JSONResponse(status_code=status.HTTP_200_OK, content={"uchwaly": all_resolutions})
+
+@router.get("/zgloszenia/")
+async def query_all_zgloszenia():
+    all_complaints = list(complaints.find())
+    for complaint in all_complaints:
+        complaint["_id"] = str(complaint["_id"])  # Konwersja ObjectId na string
+    return JSONResponse(status_code=status.HTTP_200_OK, content={"zgloszenia": all_complaints})
+
+@router.get("/sprawozdania/")
+async def query_all_sprawozdania():
+    all_statements = list(statements.find())
+    for statement in all_statements:
+        statement["_id"] = str(statement["_id"])  # Konwersja ObjectId na string
+    return JSONResponse(status_code=status.HTTP_200_OK, content={"sprawozdania": all_statements})

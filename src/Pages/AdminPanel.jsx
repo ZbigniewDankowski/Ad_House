@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import setAdmin from "../App.js";
 import logo from "../assets/new_logo.png";
 import { useNavigate } from "react-router-dom";
 import Nieruchomosci from "./Nieruchomosci";
@@ -9,6 +8,7 @@ import Zarzad from "./Zarzad";
 import Raporty from "./Raporty";
 import Start from "./Start";
 import Register from "./Register";
+import Sprawozdania from "./Sprawozdania.jsx";
 
 const AdminPanel = ({ admin }) => {
   const [selectedMenu, setSelectedMenu] = useState("start");
@@ -39,7 +39,7 @@ const AdminPanel = ({ admin }) => {
     { key: "Dokumenty", label: "Dokumenty", submenu: [] },
     { key: "Uchwaly", label: "Uchwały", submenu: [] },
     { key: "Zgloszenia", label: "Zgłoszenia", submenu: [] },
-    { key: "Sprawozdania", label: "Sprawozdania", submenu: [] },
+    { key: "Sprawozdania", label: "Sprawozdania" },
   ];
   const selectedSubmenu =
     menuItems.find((item) => item.key === selectedMenu)?.submenu || [];
@@ -60,15 +60,17 @@ const AdminPanel = ({ admin }) => {
         return <Raporty />;
       case "register":
         return <Register />;
+      case "Sprawozdania":
+        return <Sprawozdania />;
       default:
         return <div>Nie udało się załadować komponentu</div>;
     }
   };
 
   return (
-    <div className="flex h-screen bg-gradient-to-br from-logo_bg to-letter_color overflow-hidden">
+    <div className="flex h-screen bg-gradient-to-br from-logo_bg to-letter_color pb-3">
       <div className="flex w-full">
-        <div className="w-44 flex flex-col text-letter_color bg-logo_bg">
+        <div className="w-44 flex flex-col text-letter_color bg-logo_bg h-screen">
           <div className="p-5 border-b border-letter_color">
             <img className="mx-auto" src={logo} alt="Logo" />
           </div>
@@ -134,7 +136,7 @@ const AdminPanel = ({ admin }) => {
               </div>
             )}
           </div>
-          <div className="rounded px-4 mt-10 over h-full max-h-[36rem] overflow-y-auto ">
+          <div className="rounded px-4 mt-10 over  max-h-[36rem] overflow-y-auto ">
             {activeComponentKey == "register" ? (
               <div className="w-full my-6 text-left">
                 <button
