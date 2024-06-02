@@ -9,6 +9,10 @@ import Raporty from "./Raporty";
 import Start from "./Start";
 import Register from "./Register";
 import Sprawozdania from "./Sprawozdania.jsx";
+import Zgloszenia from "./Zgloszenia.jsx";
+import Dokumenty_ksiegowe from "./Dokumenty_ksiegowe.jsx";
+import Dokumenty_wspolnoty from "./Dokumenty_wspolnoty.jsx";
+import Uchwaly from "./Uchwaly.jsx";
 
 const AdminPanel = ({ admin }) => {
   const [selectedMenu, setSelectedMenu] = useState("start");
@@ -35,10 +39,16 @@ const AdminPanel = ({ admin }) => {
       ],
     },
     { key: "Księgowosc", label: "Księgowość", submenu: [] },
-    { key: "Media", label: "Media", submenu: [] },
-    { key: "Dokumenty", label: "Dokumenty", submenu: [] },
-    { key: "Uchwaly", label: "Uchwały", submenu: [] },
-    { key: "Zgloszenia", label: "Zgłoszenia", submenu: [] },
+    {
+      key: "Dokumenty",
+      label: "Dokumenty",
+      submenu: [
+        { key: "d_ksiegowe", label: "Dokumenty księgowe" },
+        { key: "d_wspolnoty", label: "Dokumenty wspólnoty" },
+      ],
+    },
+    { key: "Uchwaly", label: "Uchwały" },
+    { key: "Zgloszenia", label: "Zgłoszenia" },
     { key: "Sprawozdania", label: "Sprawozdania" },
   ];
   const selectedSubmenu =
@@ -62,6 +72,14 @@ const AdminPanel = ({ admin }) => {
         return <Register />;
       case "Sprawozdania":
         return <Sprawozdania />;
+      case "Zgloszenia":
+        return <Zgloszenia />;
+      case "d_ksiegowe":
+        return <Dokumenty_ksiegowe />;
+      case "d_wspolnoty":
+        return <Dokumenty_wspolnoty />;
+      case "Uchwaly":
+        return <Uchwaly />;
       default:
         return <div>Nie udało się załadować komponentu</div>;
     }

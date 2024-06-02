@@ -25,6 +25,9 @@ reports = db["Raporty"]
 resolutions = db["Uchwaly"]
 complaints = db["Zgloszenia"]
 statements = db["Sprawozdania"]
+accounting_docs = db["Dokumenty_ksiegowe"]
+community_docs = db["Dokumenty_wspolnoty"]
+saldo = db["Saldo"]
 
 @router.post("/login/")
 async def login(user: UserLogin):
@@ -151,3 +154,24 @@ async def query_all_sprawozdania():
     for statement in all_statements:
         statement["_id"] = str(statement["_id"])  # Konwersja ObjectId na string
     return JSONResponse(status_code=status.HTTP_200_OK, content={"sprawozdania": all_statements})
+
+@router.get("/d_ksiegowe/")
+async def query_all_dokumenty_ksiegowe():
+    all_accounting_docs = list(accounting_docs.find())
+    for doc in all_accounting_docs:
+        doc["_id"] = str(doc["_id"])  # Konwersja ObjectId na string
+    return JSONResponse(status_code=status.HTTP_200_OK, content={"d_ksiegowe": all_accounting_docs})
+
+@router.get("/d_wspolnoty/")
+async def query_all_dokumenty_wspolnoty():
+    all_community_docs = list(community_docs.find())
+    for doc in all_community_docs:
+        doc["_id"] = str(doc["_id"])  # Konwersja ObjectId na string
+    return JSONResponse(status_code=status.HTTP_200_OK, content={"d_wspolnoty": all_community_docs})
+
+@router.get("/saldo/")
+async def query_all_saldo():
+    all_saldo = list(saldo.find())
+    for doc in all_saldo:
+        doc["_id"] = str(doc["_id"])  # Konwersja ObjectId na string
+    return JSONResponse(status_code=status.HTTP_200_OK, content={"saldo": all_saldo})
