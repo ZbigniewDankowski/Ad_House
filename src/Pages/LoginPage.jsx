@@ -87,9 +87,16 @@ const LoginPage = ({ onLogin }) => {
 
       <div className="w-2/3 flex flex-col items-center justify-start">
         <img className="mb-4 w-80 p-10" src={logo} alt="logo" />
-        <div className="m-20 p-4 border-2 border-letter_color ">
-          <p className="text-xl text-letter_color p-6">
-            Witaj w panelu użytkownika
+        <div className="m-20 text-letter_color p-6 w-2/3">
+          <p className="text-3xl text-center">Witaj w panelu użytkownika</p>
+          <p className="my-6 mx-10 text-center">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+            laoreet dignissim turpis vitae ultrices. Aliquam risus nulla,
+            vehicula nec elementum ac, eleifend ac odio. Vivamus lacinia leo eu
+            nibh maximus, sed imperdiet augue feugiat. Morbi turpis leo, semper
+            in nibh eu, suscipit eleifend nisi. Nunc imperdiet pulvinar massa
+            quis lacinia. Ut sed nunc venenatis, lobortis felis eu, pellentesque
+            tortor.
           </p>
         </div>
       </div>

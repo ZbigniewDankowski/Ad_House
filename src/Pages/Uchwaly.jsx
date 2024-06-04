@@ -93,8 +93,15 @@ const Uchwaly = () => {
                 {uchwala.Opis}
               </td>
               <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                Za: {uchwala.Procent_Za}% | Przeciw: {uchwala.Procent_Przeciw}%
-                | Wstrzymało się: {uchwala.Procent_Wstrzymany}
+                {/* Za: {uchwala.Procent_Za}% | Przeciw: {uchwala.Procent_Przeciw}%
+                | Wstrzymało się: {uchwala.Procent_Wstrzymany}% */}
+                <p className="text-green-600 inline">{uchwala.Procent_Za}%</p>{" "}
+                <p className="text-red-700 inline">
+                  {uchwala.Procent_Przeciw}%
+                </p>{" "}
+                <p className="text-orange-400 inline">
+                  {uchwala.Procent_Wstrzymany}%
+                </p>
               </td>
               <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
                 {uchwala.Czy_Przyjęta === "Prawda" ? (
