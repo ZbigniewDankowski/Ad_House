@@ -5,11 +5,10 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import LoginPage from "./Pages/LoginPage";
-import UserPanel from "./Pages/User_Panel";
-import AdminLogin from "./Pages/AdminLogin";
-import AdminPanel from "./Pages/AdminPanel";
-import RegistrationForm from "./Pages/RegistrationForm";
+import LoginPage from "./Pages/User/LoginPage";
+import UserPanel from "./Pages/User/User_Panel";
+import AdminLogin from "./Pages/Admin/AdminLogin";
+import AdminPanel from "./Pages/Admin/AdminPanel";
 
 function App() {
   const [user, setUser] = useState(null);

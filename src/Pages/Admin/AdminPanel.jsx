@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import logo from "../assets/new_logo.png";
+import logo from "../../assets/new_logo.png";
 import { useNavigate } from "react-router-dom";
-import Nieruchomosci from "./Nieruchomosci";
-import Wlasciciele from "./Wlasciciele";
-import Lokale from "./Lokale";
-import Zarzad from "./Zarzad";
-import Raporty from "./Raporty";
-import Start from "./Start";
-import Register from "./Register";
-import Sprawozdania from "./Sprawozdania.jsx";
-import Zgloszenia from "./Zgloszenia.jsx";
-import Dokumenty_ksiegowe from "./Dokumenty_ksiegowe.jsx";
-import Dokumenty_wspolnoty from "./Dokumenty_wspolnoty.jsx";
-import Uchwaly from "./Uchwaly.jsx";
+import Nieruchomosci from "../Admin/Nieruchomosci.jsx";
+import Wlasciciele from "../Admin/Wlasciciele.jsx";
+import Lokale from "../Admin/Lokale.jsx";
+import Zarzad from "../Admin/Zarzad.jsx";
+import Raporty from "../Admin/Raporty.jsx";
+import Start from "../Admin/Start.jsx";
+import Register from "../Admin/Register.jsx";
+import Sprawozdania from "../Admin/Sprawozdania.jsx";
+import Zgloszenia from "../Admin/Zgloszenia.jsx";
+import Dokumenty_ksiegowe from "../Admin/Dokumenty_ksiegowe.jsx";
+import Dokumenty_wspolnoty from "../Admin/Dokumenty_wspolnoty.jsx";
+import Uchwaly from "../Admin/Uchwaly.jsx";
 
 const AdminPanel = ({ admin }) => {
   const [selectedMenu, setSelectedMenu] = useState("start");
@@ -116,7 +116,7 @@ const AdminPanel = ({ admin }) => {
           </ul>
         </div>
         <div className="flex-grow">
-          <div className="w-full h-1/3 flex flex-col justify-between align-middle">
+          <div className="w-full h-30 xl:h-36 flex flex-col justify-between align-middle">
             <div className="w-full h-16 flex flex-row justify-end">
               <p className="block my-auto font-bold text-white mr-10">
                 {admin.imie} {admin.nazwisko}
@@ -126,7 +126,7 @@ const AdminPanel = ({ admin }) => {
                   onClick={handleLogout}
                   className="text-letter_color bg-black p-2 rounded"
                 >
-                  Wyloguj się
+                  Wyloguj
                 </button>
               </div>
             </div>
@@ -154,7 +154,7 @@ const AdminPanel = ({ admin }) => {
               </div>
             )}
           </div>
-          <div className="rounded px-4 mt-10 over  max-h-[36rem] overflow-y-auto ">
+          <div className="rounded px-4 mt-10 over xl:max-h-[36rem] overflow-y-auto ">
             {activeComponentKey == "register" ? (
               <div className="w-full my-6 text-left">
                 <button
