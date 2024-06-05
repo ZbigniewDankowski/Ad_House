@@ -3,6 +3,10 @@ import React, { useEffect, useState } from "react";
 
 const Uchwaly = () => {
   const [uchwaly, setUchwaly] = useState([]);
+  const [sortConfig, setSortConfig] = useState({
+    field: null,
+    ascending: true,
+  });
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -18,6 +22,36 @@ const Uchwaly = () => {
     fetchData();
   }, []); // Pusta tablica zależności oznacza, że efekt uruchomi się tylko raz po pierwszym renderowaniu
 
+  const sortTable = (field) => {
+    let ascending = true;
+    if (sortConfig.field === field && sortConfig.ascending) {
+      ascending = false;
+    }
+    const sortedData = [...uchwaly].sort((a, b) => {
+      // Sprawdzanie, czy pole zawiera numeryczne dane, można też użyć funkcji isNaN() lub regex do bardziej złożonych warunków
+      let valA = a[field];
+      let valB = b[field];
+      if (field.includes("Data")) {
+        // Zakładając, że nazwy pól zawierające daty mają w nazwie "Data"
+        valA = convertDate(valA);
+        valB = convertDate(valB);
+      } else if (!isNaN(valA) && !isNaN(valB)) {
+        // Prosta weryfikacja, czy wartość jest numeryczna
+        valA = +valA; // Konwertuje string na liczbę
+        valB = +valB; // Konwertuje string na liczbę
+      }
+      if (valA < valB) return ascending ? -1 : 1;
+      if (valA > valB) return ascending ? 1 : -1;
+      return 0;
+    });
+    setUchwaly(sortedData);
+    setSortConfig({ field, ascending });
+  };
+  const convertDate = (dateStr) => {
+    const parts = dateStr.split(".");
+    return `${parts[2]}-${parts[1]}-${parts[0]}`; // Format YYYY-MM-DD
+  };
+
   if (uchwaly.length === 0) {
     return <div>Ładowanie danych...</div>;
   }
@@ -32,27 +66,39 @@ const Uchwaly = () => {
             <th
               scope="col"
               className="px-6 text-center text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4 "
+              onClick={() => sortTable("Data_dodania")}
             >
               Data dodania
+              {sortConfig.field === "Data_dodania" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
             <th
               scope="col"
               className="px-6 text-center text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4 "
+              onClick={() => sortTable("Data_uchwalenia")}
             >
-              Uchwalono:
+              Uchwalono
+              {sortConfig.field === "Data_uchwalenia" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
             <th
               scope="col"
               className="px-6 text-center text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4 "
+              onClick={() => sortTable("Data_obowiazywania")}
             >
-              Obowiązuje od:
+              Obowiązuje od
+              {sortConfig.field === "Data_obowiazywania" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
 
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              onClick={() => sortTable("Opis")}
             >
               Opis
+              {sortConfig.field === "Opis" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
             <th
               scope="col"
@@ -63,8 +109,11 @@ const Uchwaly = () => {
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              onClick={() => sortTable("Czy_Przyjęta")}
             >
               Status
+              {sortConfig.field === "Czy_Przyjęta" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
             <th
               scope="col"
@@ -93,8 +142,6 @@ const Uchwaly = () => {
                 {uchwala.Opis}
               </td>
               <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {/* Za: {uchwala.Procent_Za}% | Przeciw: {uchwala.Procent_Przeciw}%
-                | Wstrzymało się: {uchwala.Procent_Wstrzymany}% */}
                 <p className="text-green-600 inline">{uchwala.Procent_Za}%</p>{" "}
                 <p className="text-red-700 inline">
                   {uchwala.Procent_Przeciw}%

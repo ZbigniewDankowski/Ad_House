@@ -21,11 +21,17 @@ const UserPanel = ({ user }) => {
     {
       key: "Dokumenty",
       label: "Dokumenty",
-      submenu: [],
     },
     { key: "Uchwaly", label: "Uchwały" },
     { key: "Zgloszenia", label: "Zgłoszenia" },
-    { key: "Dane", label: "Dane" },
+    {
+      key: "Dane",
+      label: "Dane",
+      submenu: [
+        { key: "info_w", label: "Informacje o właścicielu" },
+        { key: "info_m", label: "Informacje o mieszkaniu" },
+      ],
+    },
   ];
   const selectedSubmenu =
     menuItems.find((item) => item.key === selectedMenu)?.submenu || [];

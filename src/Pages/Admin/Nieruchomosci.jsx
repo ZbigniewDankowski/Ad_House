@@ -9,8 +9,9 @@ const Nieruchomosci = () => {
         const response = await axios.get(
           "http://localhost:8000/nieruchomosci/"
         );
-        console.log(response.data.nieruchomosci); // Adres URL zależy od konfiguracji twojego API
-        setNieruchomosci(response.data.nieruchomosci);
+        console.log(response.data.nieruchomosci);
+        console.log(nieruchomosci); // Adres URL zależy od konfiguracji twojego API
+        setNieruchomosci(response.data.nieruchomosci[0]);
       } catch (error) {
         console.error("Nie udało się pobrać danych:", error); // Możesz ustawić stan na pusty array lub odpowiednią wartość w przypadku błędu
       }
@@ -22,133 +23,92 @@ const Nieruchomosci = () => {
   if (nieruchomosci.length === 0) {
     return <div>Ładowanie danych...</div>;
   }
+  const p_class =
+    "p-3 text-left  text-lg text-black font-bold inline w-full mx-20";
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-logo_bg border-2 border-logo_bg">
-        <thead className="bg-letter_color ">
-          <tr>
-            <th
-              scope="col"
-              className="px-6 text-center text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4"
-            >
-              Województwo
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
-            >
-              Miasto
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
-            >
-              Kod Pocztowy
-            </th>
-
-            <th
-              scope="col"
-              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
-            >
-              Ulica
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
-            >
-              Nr. budynku
-            </th>
-            {/* <th
-              scope="col"
-              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
-            >
-              Typ budynku
-            </th> */}
-            <th
-              scope="col"
-              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
-            >
-              Pow. Całkowita
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
-            >
-              Pow. Mieszkalna
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
-            >
-              Pow. Części Wspólnej
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
-            >
-              Pow. Hali garażowej
-            </th>
-            {/* <th
-              scope="col"
-              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
-            >
-              Pow. Lokali Użytkowych
-            </th> */}
-            <th
-              scope="col"
-              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
-            >
-              Liczba Mieszkań
-            </th>
-          </tr>
-        </thead>
-        <tbody className=" bg-gray-300 divide-x-2 divide-logo_bg divide-y-2 ">
-          {nieruchomosci.map((nieruchomosc, index) => (
-            <tr
-              key={index}
-              className="even:bg-logo_bg even:text-letter_color text-logo_bg"
-            >
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {nieruchomosc.Wojewodztwo}
-              </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {nieruchomosc.Miasto}
-              </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {nieruchomosc.Kod_Pocztowy}
-              </td>
-
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {nieruchomosc.Ulica}
-              </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {nieruchomosc.Numer_Budynku}
-              </td>
-              {/* <td className="px-3 py-4 whitespace-nowrap font-bold ">
-                {nieruchomosc.Typ_Budynku}
-              </td> */}
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {nieruchomosc.Powierzchnia_Calkowita}
-              </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {nieruchomosc.Powierzchnia_Mieszkalna}
-              </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {nieruchomosc.Powierzchnia_Cz_Wspolnej}
-              </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {nieruchomosc.Powierzchnia_Hal_Garazowej}
-              </td>
-              {/* <td className="px-3 py-4 whitespace-nowrap font-bold ">
-                {nieruchomosc.Powierzchnia_Lok_Uzytkowych}
-              </td> */}
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {nieruchomosc.Liczba_Mieszkan}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="flex justify-center align-middle w-full h-full">
+      <div className="flex flex-col justify-center align-middle w-1/3 h-full m-20 border-2 border-logo_bg rounded-xl ">
+        <h3 className="bg-logo_bg h-20 text-letter_color text-center py-4 font-bold text-2xl">
+          Lokalizacja
+        </h3>
+        <p className={p_class}>
+          Województwo:{" "}
+          <p className="text-letter_color text-lg p-3 inline">
+            {nieruchomosci.Wojewodztwo}
+          </p>
+        </p>
+        <p className={p_class}>
+          Kod pocztowy:{" "}
+          <p className="text-letter_color text-lg p-3 inline">
+            {nieruchomosci.Kod_Pocztowy}
+          </p>
+        </p>
+        <p className={p_class}>
+          Miasto:{" "}
+          <p className="text-letter_color text-lg p-3 inline">
+            {nieruchomosci.Miasto}
+          </p>
+        </p>
+        <p className={p_class}>
+          Ulica:{" "}
+          <p className="text-letter_color text-lg p-3 inline">
+            {nieruchomosci.Ulica}
+          </p>
+        </p>
+        <p className={p_class}>
+          Numer budynku:{" "}
+          <p className="text-letter_color text-lg p-3 inline">
+            {nieruchomosci.Numer_Budynku}
+          </p>
+        </p>
+      </div>
+      <div className="flex flex-col justify-center align-middle w-1/3 h-full m-20 border-2 border-logo_bg rounded-xl">
+        <h3 className="bg-logo_bg h-20 text-letter_color text-center py-4 font-bold text-2xl">
+          Dane techniczne
+        </h3>
+        <p className={p_class}>
+          Typ budynku:
+          <p className="text-letter_color text-lg p-3 inline">
+            {nieruchomosci.Typ_Budynku}
+          </p>
+        </p>
+        <p className={p_class}>
+          Liczba mieszkań
+          <p className="text-letter_color text-lg p-3 inline">
+            {nieruchomosci.Liczba_Mieszkan}
+          </p>
+        </p>
+        <p className={p_class}>
+          Powierzchnia całkowita:
+          <p className="text-letter_color text-lg p-3 inline">
+            {nieruchomosci.Powierzchnia_Calkowita} m2
+          </p>
+        </p>
+        <p className={p_class}>
+          Powierzchnia mieszkalna:
+          <p className="text-letter_color text-lg p-3 inline">
+            {nieruchomosci.Powierzchnia_Mieszkalna} m2
+          </p>
+        </p>
+        <p className={p_class}>
+          Powierzchnia Części Wspólnej
+          <p className="text-letter_color text-lg p-3 inline">
+            {nieruchomosci.Powierzchnia_Cz_Wspolnej} m2
+          </p>
+        </p>
+        <p className={p_class}>
+          Powierzchnia Hali Garażowej
+          <p className="text-letter_color text-lg p-3 inline">
+            {nieruchomosci.Powierzchnia_Hal_Garazowej} m2
+          </p>
+        </p>
+        <p className={p_class}>
+          Powierzchnia Lokali Użytkowych
+          <p className="text-letter_color text-lg p-3 inline">
+            {nieruchomosci.Powierzchnia_Lok_Uzytkowych} m2
+          </p>
+        </p>
+      </div>
     </div>
   );
 };

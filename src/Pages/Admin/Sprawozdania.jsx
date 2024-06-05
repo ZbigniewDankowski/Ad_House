@@ -3,6 +3,11 @@ import React, { useEffect, useState } from "react";
 
 const Sprawozdania = () => {
   const [sprawozdania, setSprawozadania] = useState([]);
+  const [sortConfig, setSortConfig] = useState({
+    field: null,
+    ascending: true,
+  });
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -16,6 +21,36 @@ const Sprawozdania = () => {
 
     fetchData();
   }, []); // Pusta tablica zależności oznacza, że efekt uruchomi się tylko raz po pierwszym renderowaniu
+
+  const sortTable = (field) => {
+    let ascending = true;
+    if (sortConfig.field === field && sortConfig.ascending) {
+      ascending = false;
+    }
+    const sortedData = [...sprawozdania].sort((a, b) => {
+      // Sprawdzanie, czy pole zawiera numeryczne dane, można też użyć funkcji isNaN() lub regex do bardziej złożonych warunków
+      let valA = a[field];
+      let valB = b[field];
+      if (field.includes("Data")) {
+        // Zakładając, że nazwy pól zawierające daty mają w nazwie "Data"
+        valA = convertDate(valA);
+        valB = convertDate(valB);
+      } else if (!isNaN(valA) && !isNaN(valB)) {
+        // Prosta weryfikacja, czy wartość jest numeryczna
+        valA = +valA; // Konwertuje string na liczbę
+        valB = +valB; // Konwertuje string na liczbę
+      }
+      if (valA < valB) return ascending ? -1 : 1;
+      if (valA > valB) return ascending ? 1 : -1;
+      return 0;
+    });
+    setSprawozadania(sortedData);
+    setSortConfig({ field, ascending });
+  };
+  const convertDate = (dateStr) => {
+    const parts = dateStr.split(".");
+    return `${parts[2]}-${parts[1]}-${parts[0]}`; // Format YYYY-MM-DD
+  };
 
   if (sprawozdania.length === 0) {
     return <div>Ładowanie danych...</div>;
@@ -31,14 +66,20 @@ const Sprawozdania = () => {
             <th
               scope="col"
               className="px-6 text-center text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4 "
+              onClick={() => sortTable("Data_Dodania")}
             >
               Data dodania
+              {sortConfig.field === "Data_Dodania" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              onClick={() => sortTable("Kategoria")}
             >
               Kategoria
+              {sortConfig.field === "Kategoria" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
             <th
               scope="col"

@@ -3,6 +3,10 @@ import axios from "axios";
 
 const Lokale = () => {
   const [lokale, setLokale] = useState([]);
+  const [sortConfig, setSortConfig] = useState({
+    field: null,
+    ascending: true,
+  });
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -17,6 +21,28 @@ const Lokale = () => {
     fetchData();
   }, []); // Pusta tablica zależności oznacza, że efekt uruchomi się tylko raz po pierwszym renderowaniu
 
+  const sortTable = (field) => {
+    let ascending = true;
+    if (sortConfig.field === field && sortConfig.ascending) {
+      ascending = false;
+    }
+    const sortedData = [...lokale].sort((a, b) => {
+      // Sprawdzanie, czy pole zawiera numeryczne dane, można też użyć funkcji isNaN() lub regex do bardziej złożonych warunków
+      let valA = a[field];
+      let valB = b[field];
+      if (!isNaN(valA) && !isNaN(valB)) {
+        // Prosta weryfikacja, czy wartość jest numeryczna
+        valA = +valA; // Konwertuje string na liczbę
+        valB = +valB; // Konwertuje string na liczbę
+      }
+      if (valA < valB) return ascending ? -1 : 1;
+      if (valA > valB) return ascending ? 1 : -1;
+      return 0;
+    });
+    setLokale(sortedData);
+    setSortConfig({ field, ascending });
+  };
+
   if (lokale.length === 0) {
     return <div>Ładowanie danych...</div>;
   }
@@ -28,26 +54,38 @@ const Lokale = () => {
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4"
+              onClick={() => sortTable("Nr_Mieszkania")}
             >
-              Numer mieszkania
+              Numer mieszkania{" "}
+              {sortConfig.field === "Nr_Mieszkania" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              onClick={() => sortTable("Powierzchnia_Mieszkania")}
             >
               Powierzchnia mieszkania
+              {sortConfig.field === "Powierzchnia_Mieszkania" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              onClick={() => sortTable("Stanowisk_Garazowych")}
             >
               Liczba stanowisk garażowych
+              {sortConfig.field === "Stanowisk_Garazowych" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              onClick={() => sortTable("Powierzchnia_Garażowa")}
             >
               Powierzchnia stanowisk garażowych
+              {sortConfig.field === "Powierzchnia_Garażowa" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
           </tr>
         </thead>

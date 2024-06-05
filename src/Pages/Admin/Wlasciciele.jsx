@@ -3,6 +3,10 @@ import axios from "axios";
 
 const Wlasciciele = () => {
   const [users, setUsers] = useState([]);
+  const [sortConfig, setSortConfig] = useState({
+    field: null,
+    ascending: true,
+  });
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -16,6 +20,28 @@ const Wlasciciele = () => {
     fetchData();
   }, []); // Pusta tablica zależności oznacza, że efekt uruchomi się tylko raz po pierwszym renderowaniu
 
+  const sortTable = (field) => {
+    let ascending = true;
+    if (sortConfig.field === field && sortConfig.ascending) {
+      ascending = false;
+    }
+    const sortedData = [...users].sort((a, b) => {
+      // Sprawdzanie, czy pole zawiera numeryczne dane, można też użyć funkcji isNaN() lub regex do bardziej złożonych warunków
+      let valA = a[field];
+      let valB = b[field];
+      if (!isNaN(valA) && !isNaN(valB)) {
+        // Prosta weryfikacja, czy wartość jest numeryczna
+        valA = +valA; // Konwertuje string na liczbę
+        valB = +valB; // Konwertuje string na liczbę
+      }
+      if (valA < valB) return ascending ? -1 : 1;
+      if (valA > valB) return ascending ? 1 : -1;
+      return 0;
+    });
+    setUsers(sortedData);
+    setSortConfig({ field, ascending });
+  };
+
   if (users.length === 0) {
     return <div>Ładowanie danych...</div>;
   }
@@ -27,14 +53,20 @@ const Wlasciciele = () => {
             <th
               scope="col"
               className="px-6 text-center text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4"
+              onClick={() => sortTable("imie")}
             >
               Imię
+              {sortConfig.field === "imie" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              onClick={() => sortTable("nazwisko")}
             >
               Nazwisko
+              {sortConfig.field === "nazwisko" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
             <th
               scope="col"

@@ -48,10 +48,10 @@ const UserPulpit = () => {
           <p className="mx-auto text-md font-bold">Biuro: 61 641 00 88</p>
           <p className="mx-auto text-md font-bold">Alarmowy: 513 478 206</p>
         </div>
-        <h1 className=" p-2 h-16 bg-logo_bg text-center text-letter_color font-bold text-xl mt-3">
+        <h1 className=" p-2 h-10 bg-logo_bg text-center text-letter_color font-bold text-xl mt-3">
           W przypadku awarii
         </h1>
-        <div className="w-full h-16 text-center mt-3">
+        <div className="w-full h-10 text-center mt-3">
           <p className="mx-auto text-md font-bold">Kominiarz: 725 052 585</p>
           <p className="mx-auto text-md font-bold">
             Pogotowie kanalizacyjne: 603 227 666

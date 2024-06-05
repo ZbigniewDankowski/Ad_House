@@ -17,6 +17,15 @@ const Dokumenty_ksiegowe = () => {
     fetchData();
   }, []); // Pusta tablica zależności oznacza, że efekt uruchomi się tylko raz po pierwszym renderowaniu
 
+  const sortTable = (field, ascending = true) => {
+    const sortedData = [...dokumenty].sort((a, b) => {
+      if (a[field] < b[field]) return ascending ? -1 : 1;
+      if (a[field] > b[field]) return ascending ? 1 : -1;
+      return 0;
+    });
+    setDokumenty(sortedData);
+  };
+
   if (dokumenty.length === 0) {
     return <div>Ładowanie danych...</div>;
   }
@@ -31,18 +40,21 @@ const Dokumenty_ksiegowe = () => {
             <th
               scope="col"
               className="px-6 text-center text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4 "
+              onClick={() => sortTable("Data_dodania")}
             >
               Data dodania
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              onClick={() => sortTable("Data_obowiazywania")}
             >
               Obowiązuje od:
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              onClick={() => sortTable("Opis")}
             >
               Opis
             </th>
