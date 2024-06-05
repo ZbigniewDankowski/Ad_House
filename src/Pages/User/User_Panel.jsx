@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/new_logo.png";
 import UserPulpit from "./UserPulpit";
+import Raporty from "../Admin/Raporty";
+import Uchwaly_user from "./Uchwaly_user";
 
 const UserPanel = ({ user }) => {
   const [selectedMenu, setSelectedMenu] = useState("pulpit");
@@ -40,6 +42,10 @@ const UserPanel = ({ user }) => {
     switch (activeComponentKey) {
       case "pulpit":
         return <UserPulpit />;
+      case "raporty_oplat":
+        return <Raporty />;
+      case "Uchwaly":
+        return <Uchwaly_user />;
       default:
         return <div>Nie udało się załadować komponentu</div>;
     }
@@ -121,7 +127,7 @@ const UserPanel = ({ user }) => {
           </div>
         )}
       </div>
-      <div className="h-3/5 w-full">{renderComponent()}</div>
+      <div className="h-3/5 w-full p-4">{renderComponent()}</div>
     </div>
   );
 };

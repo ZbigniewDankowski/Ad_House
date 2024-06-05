@@ -3,6 +3,12 @@ import React, { useEffect, useState } from "react";
 
 const Uchwaly_user = () => {
   const [uchwaly, setUchwaly] = useState([]);
+  const [sortConfig, setSortConfig] = useState({
+    field: null,
+    ascending: true,
+  });
+  const [selectedOption, setSelectedOption] = useState("Za"); // Ustaw domyślną opcję
+  const [isDisabled, setIsDisabled] = useState(false); // Stan do sprawdzania, czy select jest zablokowany
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -18,6 +24,46 @@ const Uchwaly_user = () => {
     fetchData();
   }, []); // Pusta tablica zależności oznacza, że efekt uruchomi się tylko raz po pierwszym renderowaniu
 
+  const sortTable = (field) => {
+    let ascending = true;
+    if (sortConfig.field === field && sortConfig.ascending) {
+      ascending = false;
+    }
+    const sortedData = [...uchwaly].sort((a, b) => {
+      // Sprawdzanie, czy pole zawiera numeryczne dane, można też użyć funkcji isNaN() lub regex do bardziej złożonych warunków
+      let valA = a[field];
+      let valB = b[field];
+      if (field.includes("Data")) {
+        // Zakładając, że nazwy pól zawierające daty mają w nazwie "Data"
+        valA = convertDate(valA);
+        valB = convertDate(valB);
+      } else if (!isNaN(valA) && !isNaN(valB)) {
+        // Prosta weryfikacja, czy wartość jest numeryczna
+        valA = +valA; // Konwertuje string na liczbę
+        valB = +valB; // Konwertuje string na liczbę
+      }
+      if (valA < valB) return ascending ? -1 : 1;
+      if (valA > valB) return ascending ? 1 : -1;
+      return 0;
+    });
+    setUchwaly(sortedData);
+    setSortConfig({ field, ascending });
+  };
+  const convertDate = (dateStr) => {
+    const parts = dateStr.split(".");
+    return `${parts[2]}-${parts[1]}-${parts[0]}`; // Format YYYY-MM-DD
+  };
+
+  // Funkcja do aktualizacji wybranej opcji
+  const handleChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  // Funkcja do zablokowania wyboru i potwierdzenia wyboru
+  const handleConfirm = () => {
+    setIsDisabled(true); // Zablokuj select
+  };
+
   if (uchwaly.length === 0) {
     return <div>Ładowanie danych...</div>;
   }
@@ -32,27 +78,39 @@ const Uchwaly_user = () => {
             <th
               scope="col"
               className="px-6 text-center text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4 "
+              onClick={() => sortTable("Data_dodania")}
             >
               Data dodania
+              {sortConfig.field === "Data_dodania" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
             <th
               scope="col"
               className="px-6 text-center text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4 "
+              onClick={() => sortTable("Data_uchwalenia")}
             >
-              Uchwalono:
+              Uchwalono
+              {sortConfig.field === "Data_uchwalenia" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
             <th
               scope="col"
               className="px-6 text-center text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4 "
+              onClick={() => sortTable("Data_obowiazywania")}
             >
-              Obowiązuje od:
+              Obowiązuje od
+              {sortConfig.field === "Data_obowiazywania" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
 
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              onClick={() => sortTable("Opis")}
             >
               Opis
+              {sortConfig.field === "Opis" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
             <th
               scope="col"
@@ -63,14 +121,23 @@ const Uchwaly_user = () => {
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              onClick={() => sortTable("Czy_Przyjęta")}
             >
               Status
+              {sortConfig.field === "Czy_Przyjęta" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
             >
               Link
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+            >
+              Zagłosuj
             </th>
           </tr>
         </thead>
@@ -83,7 +150,12 @@ const Uchwaly_user = () => {
               <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
                 {uchwala.Data_dodania}
               </td>
-
+              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
+                {uchwala.Data_uchwalenia}
+              </td>
+              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
+                {uchwala.Data_obowiazywania}
+              </td>
               <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
                 {uchwala.Opis}
               </td>
@@ -108,6 +180,42 @@ const Uchwaly_user = () => {
                   Podgląd
                 </a>
               </td>
+              <td className="px-3 py-4 whitespace-nowrap text-center">
+                <div className="text-center">
+                  <select
+                    disabled={isDisabled}
+                    hidden={isDisabled}
+                    value={selectedOption}
+                    onChange={handleChange}
+                    className="text-black mb-2 p-2"
+                  >
+                    <option value="Za">Za</option>
+                    <option value="Przeciw">Przeciw</option>
+                    <option value="Wstrzymany">Wstrzymaj się</option>
+                  </select>
+                  <button
+                    className=" bg-letter_color text-logo_bg py-1 px-3 rounded border-2 border-logo_bg mx-auto"
+                    onClick={handleConfirm}
+                    disabled={isDisabled}
+                    style={{ display: isDisabled ? "none" : "block" }} // Przycisk jest zablokowany, gdy select jest zablokowany
+                  >
+                    Zatwierdź
+                  </button>
+                </div>
+                {isDisabled && ( // Warunkowe renderowanie wartości wybranej
+                  <div>
+                    <p
+                      className={
+                        selectedOption == "Za"
+                          ? "text-green-600"
+                          : "text-red-500"
+                      }
+                    >
+                      Jesteś {selectedOption}
+                    </p>
+                  </div>
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -115,5 +223,4 @@ const Uchwaly_user = () => {
     </div>
   );
 };
-
 export default Uchwaly_user;
