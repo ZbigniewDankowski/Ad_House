@@ -1,4 +1,5 @@
-from fastapi import  APIRouter, HTTPException, status
+import datetime
+from fastapi import  APIRouter, HTTPException, Query, status
 from pymongo import MongoClient
 from fastapi.responses import JSONResponse
 from passlib.context import CryptContext
@@ -7,6 +8,7 @@ from models import *
 router = APIRouter()
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 
 # Konfiguracja klienta MongoDB
 # client = MongoClient("mongodb://localhost:27017/")
@@ -35,13 +37,12 @@ async def login(user: UserLogin):
     if user_in_db and pwd_context.verify(user.password, user_in_db.get("haslo", "")):
         # Nie zwracaj hasła ani innych wrażliwych danych
         user_data = {
-            "user_id": str(user_in_db["_id"]),  # Przekształć ObjectId na string
+            "user_id": user_in_db.get("id_wlasciciel"),
             "imie": user_in_db.get("imie"),
             "nazwisko": user_in_db.get("nazwisko"),
             "email": user_in_db.get("email"),
-            "numer_bloku": user_in_db.get("numer_bloku"),
-            "numer_klatki": user_in_db.get("numer_klatki"),
-            "numer_mieszkania": user_in_db.get("numer_mieszkania"),
+            "adres": user_in_db.get("Adres_Korespondencyjny"),
+            "numer_rachunku": user_in_db.get("Nr_Rachunku_Bankowego"),
             "telefon": user_in_db.get("telefon"),
         }
         return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "Login successful", "user": user_data})
@@ -157,17 +158,33 @@ async def query_all_sprawozdania():
 
 @router.get("/d_ksiegowe/")
 async def query_all_dokumenty_ksiegowe():
-    all_accounting_docs = list(accounting_docs.find())
-    for doc in all_accounting_docs:
-        doc["_id"] = str(doc["_id"])  # Konwersja ObjectId na string
-    return JSONResponse(status_code=status.HTTP_200_OK, content={"d_ksiegowe": all_accounting_docs})
+    try:
+        all_accounting_docs = list(accounting_docs.find())
+        for doc in all_accounting_docs:
+            doc["_id"] = str(doc["_id"])  # Konwersja ObjectId na string
+            if 'Data_dodania' in doc:
+                doc['Data_dodania'] = doc['Data_dodania'].strftime('%d.%m.%Y')
+            if 'Data_utworzenia' in doc:
+                doc['Data_utworzenia'] = doc['Data_utworzenia'].strftime('%d.%m.%Y')
+        return JSONResponse(status_code=status.HTTP_200_OK, content={"d_ksiegowe": all_accounting_docs})
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error")
 
 @router.get("/d_wspolnoty/")
 async def query_all_dokumenty_wspolnoty():
-    all_community_docs = list(community_docs.find())
-    for doc in all_community_docs:
-        doc["_id"] = str(doc["_id"])  # Konwersja ObjectId na string
-    return JSONResponse(status_code=status.HTTP_200_OK, content={"d_wspolnoty": all_community_docs})
+    try:
+        all_community_docs = list(community_docs.find())
+        for doc in all_community_docs:
+            doc["_id"] = str(doc["_id"])  # Konwersja ObjectId na string
+            if 'Data_dodania' in doc:
+                doc['Data_dodania'] = doc['Data_dodania'].strftime('%d.%m.%Y')
+            if 'Data_utworzenia' in doc:
+                doc['Data_utworzenia'] = doc['Data_utworzenia'].strftime('%d.%m.%Y')
+            if 'Data_obowiazywania' in doc:
+                doc['Data_obowiazywania'] = doc['Data_obowiazywania'].strftime('%d.%m.%Y')
+        return JSONResponse(status_code=status.HTTP_200_OK, content={"d_wspolnoty": all_community_docs})
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error")
 
 @router.get("/saldo/")
 async def query_all_saldo():
@@ -175,3 +192,66 @@ async def query_all_saldo():
     for doc in all_saldo:
         doc["_id"] = str(doc["_id"])  # Konwersja ObjectId na string
     return JSONResponse(status_code=status.HTTP_200_OK, content={"saldo": all_saldo})
+
+@router.get("/get_user_lokale")
+async def get_user_lokale(user_id: str = Query(..., description="ID użytkownika")):
+    try:
+        # Wyszukiwanie lokali na podstawie ID użytkownika
+        locale = list(lokale.find({"id_wlasciciel": user_id}))
+        if not locale:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No locales found for the given user ID")
+
+        # Konwersja ObjectId na string i przygotowanie odpowiedzi
+        for lokal in locale:
+            lokal["_id"] = str(lokal["_id"])
+
+        # Aktualny rok
+        # current_year = datetime.now().year
+
+        # # Wyszukiwanie dokumentów księgowych na podstawie aktualnego roku
+        # docs_ksiegowe = list(accounting_docs.find({"Data_utworzenia": {"$gte": datetime(current_year, 1, 1), "$lt": datetime(current_year + 1, 1, 1)}}))
+
+        # # Sumowanie kwot dla każdego typu dokumentu
+        # doc_summaries = {}
+        # for doc in docs_ksiegowe:
+        #     typ_dokumentu = doc.get("Typ_dokumentu")
+        #     kwota = doc.get("Kwota", 0)
+        #     kategoria = doc.get("Kategoria")
+        #     id_lokal = doc.get("id_lokal")
+
+        #     # Debugging
+        #     print(f"Processing document: {doc}")
+        #     print(f"Document category: {kategoria}, id_lokal: {id_lokal}")
+
+        #     if kategoria == "wpłata":
+        #         for lokal in locale:
+        #             if lokal.get("id_lokal") == id_lokal:
+        #                 print(f"Matching id_lokal found: {id_lokal}")
+        #                 if "wpłata" not in lokal:
+        #                     lokal["wpłata"] = kwota
+        #                 else:
+        #                     lokal["wpłata"] += kwota
+        #     else:
+        #         if typ_dokumentu in doc_summaries:
+        #             doc_summaries[typ_dokumentu] += kwota
+        #         else:
+        #             doc_summaries[typ_dokumentu] = kwota
+
+        # # Dodawanie informacji o dokumentach księgowych do każdego lokalu
+        # for lokal in locale:
+        #     udzial_nieruchomosc = float(lokal.get("Udzial_Nieruchomosc", 1))  # Domyślnie 1, jeśli nie ma wartości
+        #     suma_kosztow = 0
+        #     for typ_dokumentu, kwota in doc_summaries.items():
+        #         koszt = kwota * udzial_nieruchomosc
+        #         lokal[typ_dokumentu] = koszt
+        #         suma_kosztow += koszt
+
+        #     lokal["Bilans"] = lokal.get("wpłata", 0) - suma_kosztow
+
+        # Debugging final locale values
+        for lokal in locale:
+            print(f"Final locale: {lokal}")
+
+        return JSONResponse(status_code=status.HTTP_200_OK, content={"lokale": locale})
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))

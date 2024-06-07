@@ -8,8 +8,20 @@ const UserPulpit = () => {
           Saldo
         </h1>
         <div className="w-full h-48 flex flex-col justify-evenly align-middle mt-10">
-          <p className="mx-auto text-xl font-bold">Bieżące saldo: </p>
-          <p className="mx-auto text-xl font-bold">Bieżące zaległości: </p>
+          <p className="mx-auto text-xl font-bold">
+            Bieżące saldo:{" "}
+            <p className="mx-auto text-xl font-bold inline text-white">
+              {" "}
+              132,23 zł
+            </p>
+          </p>
+          <p className="mx-auto text-xl font-bold">
+            Bieżące zaległości:{" "}
+            <p className="mx-auto text-xl font-bold inline text-white">
+              {" "}
+              222,98 zł
+            </p>
+          </p>
         </div>
       </div>
       <div className="w-1/4 h-5/6  rounded-xl border-2 border-logo_bg flex flex-col justify-start align-middle">
@@ -18,8 +30,20 @@ const UserPulpit = () => {
             Ostatnie zgłoszenie
           </h1>
           <div className="p-3 w-full h-20 text-center">
-            <p className="mx-auto text-xl font-bold">Data:</p>
-            <p className="mx-auto text-xl font-bold">Treść:</p>
+            <p className="mx-auto text-xl font-bold inline">
+              Data:
+              <p className="mx-auto text-xl font-bold inline text-white">
+                {" "}
+                20.05.2024
+              </p>
+            </p>
+            <p className="mx-auto text-xl font-bold ">
+              Tytuł:
+              <p className="mx-auto text-xl font-bold inline text-white">
+                {" "}
+                Nie działa wentylator
+              </p>
+            </p>
           </div>
         </div>
         <div>
@@ -27,9 +51,23 @@ const UserPulpit = () => {
             Bieżące uchwały
           </h1>
           <div className="p-3 w-full h-20 text-center">
-            <p className="mx-auto text-xl font-bold">Data:</p>
-            <p className="mx-auto text-xl font-bold">Tytuł:</p>
-            <p className="mx-auto text-xl font-bold">Procent udziałów:</p>
+            <p className="mx-auto text-xl font-bold inline">
+              Data:
+              <p className="mx-auto text-xl font-bold inline text-white">
+                23.05.2024
+              </p>{" "}
+            </p>
+            <p className="mx-auto text-xl font-bold ">
+              Tytuł:
+              <p className="mx-auto text-xl font-bold inline text-white">
+                {" "}
+                Testowa uchwała
+              </p>
+            </p>
+            <p className="mx-auto text-xl font-bold ">
+              Procent udziałów:
+              <p className="mx-auto text-xl font-bold inline text-white"> 5%</p>
+            </p>
           </div>
         </div>
       </div>
@@ -39,28 +77,67 @@ const UserPulpit = () => {
         </h1>
         <div className="w-full h-10 text-center mt-3">
           <p className="mx-auto text-md font-bold">Indywidualny numer konta:</p>
-          <p className="mx-auto text-md font-bold">xxxx</p>
+          <p className="mx-auto text-md font-bold text-white">
+            81109019005081026675347444
+          </p>
         </div>
         <h1 className=" p-2 h-10 bg-logo_bg text-center text-letter_color font-bold text-xl mt-3">
           Ważne numery
         </h1>
         <div className="w-full h-10 text-center mt-3">
-          <p className="mx-auto text-md font-bold">Biuro: 61 641 00 88</p>
-          <p className="mx-auto text-md font-bold">Alarmowy: 513 478 206</p>
+          <p className="mx-auto text-md font-bold inline">
+            Biuro:{" "}
+            <p className="mx-auto text-md font-bold text-white inline">
+              61 4356 783
+            </p>
+          </p>
+          <br />
+          <p className="mx-auto text-md font-bold inline">
+            Alarmowy:{" "}
+            <p className="mx-auto text-md font-bold text-white inline">112</p>
+          </p>
         </div>
         <h1 className=" p-2 h-10 bg-logo_bg text-center text-letter_color font-bold text-xl mt-3">
           W przypadku awarii
         </h1>
         <div className="w-full h-10 text-center mt-3">
-          <p className="mx-auto text-md font-bold">Kominiarz: 725 052 585</p>
-          <p className="mx-auto text-md font-bold">
-            Pogotowie kanalizacyjne: 603 227 666
+          <p className="mx-auto text-md font-bold inline">
+            Kominiarz:{" "}
+            <p className="mx-auto text-md font-bold text-white inline">
+              723-876-901
+            </p>
           </p>
-          <p className="mx-auto text-md font-bold">Elektryk: 502 536 444</p>
-          <p className="mx-auto text-md font-bold">
-            Hydraulik kanalizacyjne: 602 556 668
+          <br />
+
+          <p className="mx-auto text-md font-bold inline">
+            Pogotowie kanalizacyjne:{" "}
+            <p className="mx-auto text-md font-bold text-white inline">
+              603 227 666
+            </p>
           </p>
-          <p className="mx-auto text-md font-bold">Konserwator: 512 489 205</p>
+          <br />
+          <p className="mx-auto text-md font-bold inline">
+            Elektryk:{" "}
+            <p className="mx-auto text-md font-bold text-white inline">
+              502 536 444
+            </p>
+          </p>
+          <br />
+
+          <p className="mx-auto text-md font-bold inline">
+            Hydraulik kanalizacyjne:{" "}
+            <p className="mx-auto text-md font-bold text-white inline">
+              602 556 668
+            </p>
+          </p>
+          <br />
+          {/* <p className="mx-auto text-md font-bold">Konserwator: 512 489 205</p> */}
+          <p className="mx-auto text-md font-bold inline">
+            Konserwator:{" "}
+            <p className="mx-auto text-md font-bold text-white inline">
+              512 489 205
+            </p>
+          </p>
         </div>
       </div>
     </div>

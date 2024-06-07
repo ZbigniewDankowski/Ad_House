@@ -1,13 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/new_logo.png";
 import UserPulpit from "./UserPulpit";
 import Raporty from "../Admin/Raporty";
 import Uchwaly_user from "./Uchwaly_user";
+import axios from "axios";
+import Naliczenia from "./Naliczenia";
 
 const UserPanel = ({ user }) => {
   const [selectedMenu, setSelectedMenu] = useState("pulpit");
   const [activeComponentKey, setActiveComponentKey] = useState("pulpit");
+  const [info, setInfo] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/get_user_lokale?user_id=${user.user_id}`
+        );
+        console.log("Dane" + response);
+        setInfo(response.data.lokale); // aktualizacja stanu lokalami
+      } catch (error) {
+        console.error("Nie udało się pobrać danych:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const menuItems = [
     { key: "pulpit", label: "Pulpit" },
@@ -46,6 +64,8 @@ const UserPanel = ({ user }) => {
         return <Raporty />;
       case "Uchwaly":
         return <Uchwaly_user />;
+      case "naliczenia":
+        return <Naliczenia />;
       default:
         return <div>Nie udało się załadować komponentu</div>;
     }

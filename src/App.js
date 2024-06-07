@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
+  useNavigate,
 } from "react-router-dom";
 import LoginPage from "./Pages/User/LoginPage";
 import UserPanel from "./Pages/User/User_Panel";
@@ -14,15 +15,27 @@ function App() {
   const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(null);
 
+  useEffect(() => {
+    if (user) {
+      console.log("Zalogowany jako użytkownik:", user);
+    }
+  }, [user]); // Reagowanie na zmiany w user
+
+  useEffect(() => {
+    if (admin) {
+      console.log("Zalogowany jako admin:", admin);
+    }
+  }, [admin]); // Reagowanie na zmiany w admin
+
   const handleLogin = (userData) => {
+    console.log(userData);
     setUser({
       user_id: userData.user_id, // Przykładowy identyfikator użytkownika
       imie: userData.imie,
       nazwisko: userData.nazwisko,
       email: userData.email,
-      numer_bloku: userData.numer_bloku,
-      numer_klatki: userData.numer_klatki,
-      numer_mieszkania: userData.numer_mieszkania,
+      numer_rachunku: userData.numer_rachunku,
+      adres: userData.adres,
       telefon: userData.telefon,
     });
   };
