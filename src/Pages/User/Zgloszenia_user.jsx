@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const Dokumenty_ksiegowe = () => {
-  const [dokumenty, setDokumenty] = useState([]);
+const Zgloszenia_user = () => {
+  const [zgloszenia, setZgloszenia] = useState([]);
   const [sortConfig, setSortConfig] = useState({
     field: null,
     ascending: true,
@@ -10,9 +10,9 @@ const Dokumenty_ksiegowe = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/d_ksiegowe/");
+        const response = await axios.get("http://localhost:8000/zgloszenia/");
 
-        setDokumenty(response.data.d_ksiegowe);
+        setZgloszenia(response.data.zgloszenia);
       } catch (error) {
         console.error("Nie udało się pobrać danych:", error); // Możesz ustawić stan na pusty array lub odpowiednią wartość w przypadku błędu
       }
@@ -26,7 +26,7 @@ const Dokumenty_ksiegowe = () => {
     if (sortConfig.field === field && sortConfig.ascending) {
       ascending = false;
     }
-    const sortedData = [...dokumenty].sort((a, b) => {
+    const sortedData = [...zgloszenia].sort((a, b) => {
       // Sprawdzanie, czy pole zawiera numeryczne dane, można też użyć funkcji isNaN() lub regex do bardziej złożonych warunków
       let valA = a[field];
       let valB = b[field];
@@ -43,7 +43,7 @@ const Dokumenty_ksiegowe = () => {
       if (valA > valB) return ascending ? 1 : -1;
       return 0;
     });
-    setDokumenty(sortedData);
+    setZgloszenia(sortedData);
     setSortConfig({ field, ascending });
   };
   const convertDate = (dateStr) => {
@@ -51,13 +51,13 @@ const Dokumenty_ksiegowe = () => {
     return `${parts[2]}-${parts[1]}-${parts[0]}`; // Format YYYY-MM-DD
   };
 
-  if (dokumenty.length === 0) {
+  if (zgloszenia.length === 0) {
     return <div>Ładowanie danych...</div>;
   }
   return (
     <div className="overflow-x-auto">
       <h1 className="text-2xl text-white py-3 text-center font-bold">
-        Dokumenty księgowe
+        Zgłoszenia
       </h1>
       <table className="min-w-full divide-y divide-logo_bg border-2 border-logo_bg">
         <thead className="bg-letter_color ">
@@ -65,57 +65,66 @@ const Dokumenty_ksiegowe = () => {
             <th
               scope="col"
               className="px-6 text-center text-xs font-bold  text-logo_bg uppercase tracking-wider w-1/4 "
-              onClick={() => sortTable("Data_Dodania")}
+              onClick={() => sortTable("Zgłaszający")}
             >
-              Data dodania
-              {sortConfig.field === "Data_Dodania" &&
+              Zgłaszający
+              {sortConfig.field === "Zgłaszający" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              onClick={() => sortTable("Data_Zgloszenia")}
+            >
+              Z dnia
+              {sortConfig.field === "Data_Zgloszenia" &&
+                (sortConfig.ascending ? " ↓ " : " ↑ ")}
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+              onClick={() => sortTable("Treść")}
+            >
+              Treść zgłoszenia
+              {sortConfig.field === "Treść" &&
                 (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
 
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
-              onClick={() => sortTable("Opis")}
+              onClick={() => sortTable("Status")}
             >
-              Opis
-              {sortConfig.field === "Opis" &&
+              Status
+              {sortConfig.field === "Status" &&
                 (sortConfig.ascending ? " ↓ " : " ↑ ")}
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
-            >
-              Link
             </th>
           </tr>
         </thead>
         <tbody className=" bg-gray-300 divide-x-2 divide-logo_bg divide-y-2 ">
-          {dokumenty.map((dokument, index) => (
+          {zgloszenia.map((zgloszenia, index) => (
             <tr
               key={index}
               className="even:bg-logo_bg even:text-letter_color text-logo_bg"
             >
               <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {dokument.Data_dodania}
+                {zgloszenia.Zgłaszający}
               </td>
               <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {dokument.Opis}
+                {zgloszenia.Data_Zgloszenia}
               </td>
               <td className="px-3 py-4 whitespace-nowrap text-center">
-                <a href={dokument.Link} download={true} target="_blank">
-                  Podgląd
-                </a>
+                {zgloszenia.Treść}
+              </td>
+              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
+                {zgloszenia.Status}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <button className="w-1/6 border-2 border-letter_color p-1 bg-logo_bg text-letter_color font-bold rounded-md mr-6 mt-6 ">
-        {" "}
-        Dodaj dokument
-      </button>
     </div>
   );
 };
 
-export default Dokumenty_ksiegowe;
+export default Zgloszenia_user;

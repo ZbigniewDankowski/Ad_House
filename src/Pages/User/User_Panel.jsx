@@ -8,9 +8,9 @@ import axios from "axios";
 import Naliczenia from "./Naliczenia";
 import Konsolidacja from "./Konsolidacja";
 import Dokumenty from "./Dokumenty";
-import Zgloszenia from "../Admin/Zgloszenia";
-import Informacje_w from "./Informacje_wlasciciela";
+import Zgloszenia_user from "./Zgloszenia_user";
 import Informacje_wlasciciela from "./Informacje_wlasciciela";
+import Informacje_mieszkania from "./Informacje_mieszkania";
 
 const UserPanel = ({ user }) => {
   const [selectedMenu, setSelectedMenu] = useState("pulpit");
@@ -76,9 +76,11 @@ const UserPanel = ({ user }) => {
       case "Dokumenty":
         return <Dokumenty />;
       case "Zgloszenia":
-        return <Zgloszenia />;
+        return <Zgloszenia_user />;
       case "info_w":
         return <Informacje_wlasciciela />;
+      case "info_m":
+        return <Informacje_mieszkania />;
       default:
         return <div>Nie udało się załadować komponentu</div>;
     }

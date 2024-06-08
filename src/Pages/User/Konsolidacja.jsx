@@ -217,7 +217,7 @@ const Konsolidacja = () => {
           </div>
           <div className="w-full h-8 flex flex-nowrap">
             <div className="w-2/5 h-full border-r-2 border-b-2 border-logo_bg">
-              Wynagrodzenie zarządzcy
+              Wpłaty
             </div>
             <div className="w-3/5 h-full flex justify-end align-middle text-center border-logo_bg">
               <p className={row_class}>17,40 zł</p>
@@ -238,7 +238,7 @@ const Konsolidacja = () => {
             <h1 className={h1_class}>Saldo</h1>
           </div>
           <div className="w-full h-8 flex flex-nowrap">
-            <div className="w-3/5 h-full border-r-2 border-b-2 border-logo_bg">
+            <div className="w-2/5 h-full border-r-2 border-b-2 border-logo_bg">
               Bilans zaliczki-wpłaty
             </div>
             <div className="w-3/5 h-full flex justify-end align-middle text-center border-logo_bg">

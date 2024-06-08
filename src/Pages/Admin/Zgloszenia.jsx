@@ -99,6 +99,12 @@ const Zgloszenia = () => {
               {sortConfig.field === "Status" &&
                 (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+            >
+              Odpowiedź
+            </th>
           </tr>
         </thead>
         <tbody className=" bg-gray-300 divide-x-2 divide-logo_bg divide-y-2 ">
@@ -118,6 +124,11 @@ const Zgloszenia = () => {
               </td>
               <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
                 {zgloszenia.Status}
+              </td>
+              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
+                <a className="underline" href="#">
+                  Edytuj
+                </a>
               </td>
             </tr>
           ))}

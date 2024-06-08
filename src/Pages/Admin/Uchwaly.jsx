@@ -166,6 +166,10 @@ const Uchwaly = () => {
           ))}
         </tbody>
       </table>
+      <button className="w-1/6 border-2 border-letter_color p-1 bg-logo_bg text-letter_color font-bold rounded-md mr-6 mt-6 ">
+        {" "}
+        Wprowadź nową uchwałę
+      </button>
     </div>
   );
 };

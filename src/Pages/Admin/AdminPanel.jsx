@@ -45,11 +45,11 @@ const AdminPanel = ({ admin }) => {
       submenu: [
         { key: "d_ksiegowe", label: "Dokumenty księgowe" },
         { key: "d_wspolnoty", label: "Dokumenty wspólnoty" },
+        { key: "Sprawozdania", label: "Sprawozdania" },
       ],
     },
     { key: "Uchwaly", label: "Uchwały" },
     { key: "Zgloszenia", label: "Zgłoszenia" },
-    { key: "Sprawozdania", label: "Sprawozdania" },
   ];
   const selectedSubmenu =
     menuItems.find((item) => item.key === selectedMenu)?.submenu || [];
@@ -118,13 +118,13 @@ const AdminPanel = ({ admin }) => {
         <div className="flex-grow">
           <div className="w-full h-30 xl:h-36 flex flex-col justify-between align-middle">
             <div className="w-full h-16 flex flex-row justify-end">
-              <p className="block my-auto font-bold text-white mr-10">
-                {admin.imie} {admin.nazwisko}
+              <p className="block my-auto font-bold text-white mr-10 text-2xl ">
+                {admin.imie} {admin.nazwisko} - administrator
               </p>
               <div className="p-4 text-center">
                 <button
                   onClick={handleLogout}
-                  className="text-letter_color bg-black p-2 rounded"
+                  className="text-letter_color bg-black px-4 py-2 rounded w-36 border-2 border-letter_color font-bold"
                 >
                   Wyloguj
                 </button>
