@@ -6,6 +6,11 @@ import Raporty from "../Admin/Raporty";
 import Uchwaly_user from "./Uchwaly_user";
 import axios from "axios";
 import Naliczenia from "./Naliczenia";
+import Konsolidacja from "./Konsolidacja";
+import Dokumenty from "./Dokumenty";
+import Zgloszenia from "../Admin/Zgloszenia";
+import Informacje_w from "./Informacje_wlasciciela";
+import Informacje_wlasciciela from "./Informacje_wlasciciela";
 
 const UserPanel = ({ user }) => {
   const [selectedMenu, setSelectedMenu] = useState("pulpit");
@@ -66,6 +71,14 @@ const UserPanel = ({ user }) => {
         return <Uchwaly_user />;
       case "naliczenia":
         return <Naliczenia />;
+      case "konsolidacja":
+        return <Konsolidacja />;
+      case "Dokumenty":
+        return <Dokumenty />;
+      case "Zgloszenia":
+        return <Zgloszenia />;
+      case "info_w":
+        return <Informacje_wlasciciela />;
       default:
         return <div>Nie udało się załadować komponentu</div>;
     }
@@ -82,7 +95,10 @@ const UserPanel = ({ user }) => {
           <div className=" h-full">
             <img className="mx-auto w-30 h-full block" src={logo} alt="Logo" />
           </div>
-          <div className="text-xl p-4 text-letter_color">Nazwa wspólnoty</div>
+          <div className="text-xl p-4 text-letter_color inline">
+            Nazwa wspólnoty:{" "}
+            <p className="text-white font-bold inline">Wikingowie</p>{" "}
+          </div>
           <div className="p-4 text-center w-1/6">
             <button
               onClick={handleLogout}
@@ -94,8 +110,15 @@ const UserPanel = ({ user }) => {
         </div>
         <div className="w-2/4 h-1/3  border-l-2 border-letter_color self-end flex text-center bg-logo_bg">
           <div className="w-1/2 h-1/4 text-letter_color flex flex-col ">
-            <p className="py-2 my-2"> Numer mieszkania: </p>
-            <p className="py-2 my-2">Nazwa mieszkania: </p>
+            <p className="py-2 my-2 inline">
+              {" "}
+              Numer mieszkania:{" "}
+              <p className="text-white font-bold inline">4A/12</p>{" "}
+            </p>
+            <p className="py-2 my-2">
+              Nazwa mieszkania:{" "}
+              <p className="text-white font-bold inline">Tarcza</p>{" "}
+            </p>
           </div>
           <div className="w-1/2 h-1/4 my-auto text-letter_color"></div>
         </div>

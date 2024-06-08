@@ -5,7 +5,7 @@ const h1_class =
   "w-full h-8 p-1 bg-logo_bg text-letter_color text-center border-b-2 border-letter_color font-bold text-sm ";
 const Naliczenia = () => {
   return (
-    <div className="w-3/4 h-full bg-white mx-auto flex-col align-middle justify-center">
+    <div className="w-3/4 h-full bg-white mx-auto flex-col align-middle justify-center max-h-[36rem] overflow-x-auto">
       <div className="flex flex-wrap w-full h-30">
         <h1 className={h1_class}>Mieszkanie 4A/12</h1>
         <div className="w-full h-8 flex flex-nowrap">

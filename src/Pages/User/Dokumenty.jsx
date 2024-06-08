@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const Dokumenty_wspolnoty = () => {
+const Dokumenty = () => {
   const [dokumenty, setDokumenty] = useState([]);
   const [sortConfig, setSortConfig] = useState({
     field: null,
@@ -56,9 +56,6 @@ const Dokumenty_wspolnoty = () => {
   }
   return (
     <div className="overflow-x-auto">
-      <h1 className="text-2xl text-white py-3 text-center font-bold">
-        Dokumenty księgowe
-      </h1>
       <table className="min-w-full divide-y divide-logo_bg border-2 border-logo_bg">
         <thead className="bg-letter_color ">
           <tr>
@@ -71,21 +68,13 @@ const Dokumenty_wspolnoty = () => {
               {sortConfig.field === "Data_Dodania" &&
                 (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
-              onClick={() => sortTable("Data_obowiazywania")}
-            >
-              Obowiązuje od:
-              {sortConfig.field === "Data_obowiazywania" &&
-                (sortConfig.ascending ? " ↓ " : " ↑ ")}
-            </th>
+
             <th
               scope="col"
               className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
               onClick={() => sortTable("Opis")}
             >
-              Opis
+              Nazwa
               {sortConfig.field === "Opis" &&
                 (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
@@ -106,9 +95,7 @@ const Dokumenty_wspolnoty = () => {
               <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
                 {dokument.Data_dodania}
               </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {dokument.Data_obowiazywania}
-              </td>
+
               <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
                 {dokument.Opis}
               </td>
@@ -121,12 +108,8 @@ const Dokumenty_wspolnoty = () => {
           ))}
         </tbody>
       </table>
-      <button className="w-1/6 border-2 border-letter_color p-1 bg-logo_bg text-letter_color font-bold rounded-md mr-6 mt-6 ">
-        {" "}
-        Dodaj dokument
-      </button>
     </div>
   );
 };
 
-export default Dokumenty_wspolnoty;
+export default Dokumenty;

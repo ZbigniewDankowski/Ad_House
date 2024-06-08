@@ -208,10 +208,10 @@ async def get_user_lokale(user_id: str = Query(..., description="ID użytkownika
         # Aktualny rok
         # current_year = datetime.now().year
 
-        # # Wyszukiwanie dokumentów księgowych na podstawie aktualnego roku
+        # Wyszukiwanie dokumentów księgowych na podstawie aktualnego roku
         # docs_ksiegowe = list(accounting_docs.find({"Data_utworzenia": {"$gte": datetime(current_year, 1, 1), "$lt": datetime(current_year + 1, 1, 1)}}))
 
-        # # Sumowanie kwot dla każdego typu dokumentu
+        # Sumowanie kwot dla każdego typu dokumentu
         # doc_summaries = {}
         # for doc in docs_ksiegowe:
         #     typ_dokumentu = doc.get("Typ_dokumentu")
@@ -248,9 +248,7 @@ async def get_user_lokale(user_id: str = Query(..., description="ID użytkownika
 
         #     lokal["Bilans"] = lokal.get("wpłata", 0) - suma_kosztow
 
-        # Debugging final locale values
-        for lokal in locale:
-            print(f"Final locale: {lokal}")
+        
 
         return JSONResponse(status_code=status.HTTP_200_OK, content={"lokale": locale})
     except Exception as e:

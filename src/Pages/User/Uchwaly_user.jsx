@@ -142,82 +142,78 @@ const Uchwaly_user = () => {
           </tr>
         </thead>
         <tbody className=" bg-gray-300 divide-x-2 divide-logo_bg divide-y-2 ">
-          {uchwaly.map((uchwala, index) => (
-            <tr
-              key={index}
-              className="even:bg-logo_bg even:text-letter_color text-logo_bg"
-            >
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {uchwala.Data_dodania}
-              </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {uchwala.Data_uchwalenia}
-              </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {uchwala.Data_obowiazywania}
-              </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {uchwala.Opis}
-              </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                <p className="text-green-600 inline">{uchwala.Procent_Za}%</p>{" "}
-                <p className="text-red-700 inline">
-                  {uchwala.Procent_Przeciw}%
-                </p>{" "}
-                <p className="text-orange-400 inline">
-                  {uchwala.Procent_Wstrzymany}%
-                </p>
-              </td>
-              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
-                {uchwala.Czy_Przyjęta === "Prawda" ? (
-                  <p className="text-green-600">Przyjęta</p>
-                ) : (
-                  <p className="text-red-700">Odrzucona</p>
-                )}
-              </td>
-              <td className="px-3 py-4 whitespace-nowrap text-center">
-                <a href={uchwala.Link} download={true} target="_blank">
-                  Podgląd
-                </a>
-              </td>
-              <td className="px-3 py-4 whitespace-nowrap text-center">
-                <div className="text-center">
-                  <select
-                    disabled={isDisabled}
-                    hidden={isDisabled}
-                    value={selectedOption}
-                    onChange={handleChange}
-                    className="text-black mb-2 p-2"
+          <tr
+            key={222}
+            className="even:bg-logo_bg even:text-letter_color text-logo_bg"
+          >
+            <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
+              {uchwaly[0].Data_dodania}
+            </td>
+            <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
+              {uchwaly[0].Data_uchwalenia}
+            </td>
+            <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
+              {uchwaly[0].Data_obowiazywania}
+            </td>
+            <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
+              {uchwaly[0].Opis}
+            </td>
+            <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
+              <p className="text-green-600 inline">{uchwaly[0].Procent_Za}%</p>{" "}
+              <p className="text-red-700 inline">
+                {uchwaly[0].Procent_Przeciw}%
+              </p>{" "}
+              <p className="text-orange-400 inline">
+                {uchwaly[0].Procent_Wstrzymany}%
+              </p>
+            </td>
+            <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
+              {uchwaly[0].Czy_Przyjęta === "Prawda" ? (
+                <p className="text-green-600">Przyjęta</p>
+              ) : (
+                <p className="text-red-700">Odrzucona</p>
+              )}
+            </td>
+            <td className="px-3 py-4 whitespace-nowrap text-center">
+              <a href={uchwaly[0].Link} download={true} target="_blank">
+                Podgląd
+              </a>
+            </td>
+            <td className="px-3 py-4 whitespace-nowrap text-center">
+              <div className="text-center">
+                <select
+                  disabled={isDisabled}
+                  hidden={isDisabled}
+                  value={selectedOption}
+                  onChange={handleChange}
+                  className="text-black mb-2 p-2"
+                >
+                  <option value="Za">Za</option>
+                  <option value="Przeciw">Przeciw</option>
+                  <option value="Wstrzymany">Wstrzymaj się</option>
+                </select>
+                <button
+                  className=" bg-letter_color text-logo_bg py-1 px-3 rounded border-2 border-logo_bg mx-auto"
+                  onClick={handleConfirm}
+                  disabled={isDisabled}
+                  style={{ display: isDisabled ? "none" : "block" }} // Przycisk jest zablokowany, gdy select jest zablokowany
+                >
+                  Zatwierdź
+                </button>
+              </div>
+              {isDisabled && ( // Warunkowe renderowanie wartości wybranej
+                <div>
+                  <p
+                    className={
+                      selectedOption == "Za" ? "text-green-600" : "text-red-500"
+                    }
                   >
-                    <option value="Za">Za</option>
-                    <option value="Przeciw">Przeciw</option>
-                    <option value="Wstrzymany">Wstrzymaj się</option>
-                  </select>
-                  <button
-                    className=" bg-letter_color text-logo_bg py-1 px-3 rounded border-2 border-logo_bg mx-auto"
-                    onClick={handleConfirm}
-                    disabled={isDisabled}
-                    style={{ display: isDisabled ? "none" : "block" }} // Przycisk jest zablokowany, gdy select jest zablokowany
-                  >
-                    Zatwierdź
-                  </button>
+                    Jesteś {selectedOption}
+                  </p>
                 </div>
-                {isDisabled && ( // Warunkowe renderowanie wartości wybranej
-                  <div>
-                    <p
-                      className={
-                        selectedOption == "Za"
-                          ? "text-green-600"
-                          : "text-red-500"
-                      }
-                    >
-                      Jesteś {selectedOption}
-                    </p>
-                  </div>
-                )}
-              </td>
-            </tr>
-          ))}
+              )}
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
