@@ -49,13 +49,17 @@ const AdminLogin = ({ onAdminLogin }) => {
             Witaj w panelu logowania administratora
           </p>
           <p className="my-6 mx-10 text-center">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            laoreet dignissim turpis vitae ultrices. Aliquam risus nulla,
-            vehicula nec elementum ac, eleifend ac odio. Vivamus lacinia leo eu
-            nibh maximus, sed imperdiet augue feugiat. Morbi turpis leo, semper
-            in nibh eu, suscipit eleifend nisi. Nunc imperdiet pulvinar massa
-            quis lacinia. Ut sed nunc venenatis, lobortis felis eu, pellentesque
-            tortor.
+            Adhouse to innowacyjna firma technologiczna, która specjalizuje się
+            w tworzeniu oprogramowania do zarządzania wspólnotą mieszkaniową.
+            Ich flagowy produkt to zaawansowany system, który umożliwia
+            zarządzanie nieruchomościami, monitorowanie płatności czynszowych, a
+            także koordynowanie zadań konserwacyjnych i naprawczych.
+            Oprogramowanie Adhouse jest projektowane z myślą o zwiększeniu
+            efektywności działania zarządców nieruchomości, oferując im
+            intuicyjny interfejs i dostęp do real-time danych.W AdHouse cenimy
+            sobie innowacyjność i ciągle dąży do rozwijania swoich produktów,
+            aby odpowiadały na rosnące wymagania nowoczesnych wspólnot
+            mieszkaniowych.
           </p>
         </div>
       </div>

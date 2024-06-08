@@ -13,6 +13,9 @@ import Zgloszenia from "../Admin/Zgloszenia.jsx";
 import Dokumenty_ksiegowe from "../Admin/Dokumenty_ksiegowe.jsx";
 import Dokumenty_wspolnoty from "../Admin/Dokumenty_wspolnoty.jsx";
 import Uchwaly from "../Admin/Uchwaly.jsx";
+import Naliczenia_nieruchomosc from "./Naliczenia_nieruchomosc.jsx";
+import Naliczenia_lokali from "./Naliczenia_lokali.jsx";
+import Faktury from "./Faktury.jsx";
 
 const AdminPanel = ({ admin }) => {
   const [selectedMenu, setSelectedMenu] = useState("start");
@@ -38,7 +41,15 @@ const AdminPanel = ({ admin }) => {
         { key: "raporty", label: "Raporty" },
       ],
     },
-    { key: "Księgowosc", label: "Księgowość", submenu: [] },
+    {
+      key: "Księgowosc",
+      label: "Księgowość",
+      submenu: [
+        { key: "naliczenia_n", label: "Naliczenia nieruchomości" },
+        { key: "naliczenia_l", label: "Naliczenia lokali" },
+        { key: "faktury", label: "Faktury" },
+      ],
+    },
     {
       key: "Dokumenty",
       label: "Dokumenty",
@@ -80,6 +91,13 @@ const AdminPanel = ({ admin }) => {
         return <Dokumenty_wspolnoty />;
       case "Uchwaly":
         return <Uchwaly />;
+      case "naliczenia_n":
+        return <Naliczenia_nieruchomosc />;
+      case "naliczenia_l":
+        return <Naliczenia_lokali />;
+      case "faktury":
+        return <Faktury />;
+
       default:
         return <div>Nie udało się załadować komponentu</div>;
     }
