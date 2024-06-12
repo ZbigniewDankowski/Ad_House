@@ -10,11 +10,7 @@ router = APIRouter()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
-# Konfiguracja klienta MongoDB
-# client = MongoClient("mongodb://localhost:27017/")
-# db = client["AdHouse"]  # Nazwa bazy danych
-# users = db["Users"]  # Kolekcja
-# admin = db["Admin"]
+
 
 client = MongoClient("mongodb+srv://Admin:admin@mongodb.mockvji.mongodb.net/?retryWrites=true&w=majority&appName=MongoDB")
 db = client["AdHouse"]  # Nazwa bazy danych
