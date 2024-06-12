@@ -57,7 +57,7 @@ const Dokumenty_wspolnoty = () => {
   return (
     <div className="overflow-x-auto">
       <h1 className="text-2xl text-white py-3 text-center font-bold">
-        Dokumenty księgowe
+        Dokumenty wspólnoty
       </h1>
       <table className="min-w-full divide-y divide-logo_bg border-2 border-logo_bg">
         <thead className="bg-letter_color ">
