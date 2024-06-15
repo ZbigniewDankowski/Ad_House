@@ -87,6 +87,12 @@ const Lokale = () => {
               {sortConfig.field === "Powierzchnia_Garażowa" &&
                 (sortConfig.ascending ? " ↓ " : " ↑ ")}
             </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+            >
+              Akcje
+            </th>
           </tr>
         </thead>
         <tbody className=" bg-gray-300 divide-x-2 divide-logo_bg divide-y-2">
@@ -106,6 +112,9 @@ const Lokale = () => {
               </td>
               <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
                 {lokal.Powierzchnia_Garażowa}
+              </td>
+              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
+                <a href="#">Edytuj</a>
               </td>
             </tr>
           ))}

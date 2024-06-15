@@ -1,4 +1,6 @@
 import datetime
+from dotenv import load_dotenv
+import os
 from fastapi import  APIRouter, HTTPException, Query, status
 from pymongo import MongoClient
 from fastapi.responses import JSONResponse
@@ -9,10 +11,11 @@ router = APIRouter()
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+load_dotenv()
+MONGO_URL = os.getenv("MONGO_URL")
 
 
-
-client = MongoClient("mongodb+srv://Admin:admin@mongodb.mockvji.mongodb.net/?retryWrites=true&w=majority&appName=MongoDB")
+client = MongoClient(MONGO_URL)
 db = client["AdHouse"]  # Nazwa bazy danych
 users = db["Users"]  # Kolekcja
 admin = db["Admin"]

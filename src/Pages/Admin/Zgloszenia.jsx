@@ -105,6 +105,12 @@ const Zgloszenia = () => {
             >
               Odpowiedź
             </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+            >
+              Akcje
+            </th>
           </tr>
         </thead>
         <tbody className=" bg-gray-300 divide-x-2 divide-logo_bg divide-y-2 ">
@@ -130,10 +136,19 @@ const Zgloszenia = () => {
                   Edytuj
                 </a>
               </td>
+              <td className="px-3 py-4 whitespace-nowrap font-bold text-center">
+                <a className="underline" href="#">
+                  Podgląd
+                </a>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <button className="w-1/6 border-2 border-letter_color p-1 bg-logo_bg text-letter_color font-bold rounded-md mr-6 mt-6 ">
+        {" "}
+        Dodaj zgłoszenie
+      </button>
     </div>
   );
 };

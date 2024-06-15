@@ -199,6 +199,30 @@ const AdminPanel = ({ admin }) => {
               </button>
             </div>
           ) : null}
+          {activeComponentKey == "lokale" ? (
+            <div className="w-full my-6 text-right">
+              <button
+                className="w-1/6 border-2 border-letter_color p-1 bg-logo_bg text-letter_color font-bold rounded-md mr-6"
+                onClick={() => {
+                  setActiveComponentKey("lokale");
+                }}
+              >
+                Dodaj lokal
+              </button>
+            </div>
+          ) : null}
+          {activeComponentKey == "raporty" ? (
+            <div className="w-full my-6 text-right">
+              <button
+                className="w-1/6 border-2 border-letter_color p-1 bg-logo_bg text-letter_color font-bold rounded-md mr-6"
+                onClick={() => {
+                  setActiveComponentKey("lokale");
+                }}
+              >
+                Dodaj raport
+              </button>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

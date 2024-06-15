@@ -93,6 +93,12 @@ const Raporty = () => {
             >
               Link
             </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-center text-xs font-bold text-logo_bg uppercase tracking-wider w-1/4"
+            >
+              Akcje
+            </th>
           </tr>
         </thead>
         <tbody className=" bg-gray-300 divide-x-2 divide-logo_bg divide-y-2 ">
@@ -114,6 +120,11 @@ const Raporty = () => {
               <td className="px-3 py-4 whitespace-nowrap text-center">
                 <a href={raporty.Link} download={true} target="_blank">
                   Podgląd
+                </a>
+              </td>
+              <td className="px-3 py-4 whitespace-nowrap text-center">
+                <a href="#" className="px-2">
+                  Usuń
                 </a>
               </td>
             </tr>

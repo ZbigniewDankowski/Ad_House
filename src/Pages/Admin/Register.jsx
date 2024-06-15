@@ -134,7 +134,7 @@ const Register = () => {
               Numer bloku
             </label>
             <input
-              type="text"
+              type="int"
               id="numerBloku"
               name="numerBloku"
               value={formData.numerBloku}
@@ -149,7 +149,7 @@ const Register = () => {
               Numer klatki
             </label>
             <input
-              type="text"
+              type="int"
               id="numerKlatki"
               name="numerKlatki"
               value={formData.numerKlatki}

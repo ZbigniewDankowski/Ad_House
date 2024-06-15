@@ -51,6 +51,11 @@ const Zarzad = () => {
           <button className="pt-3 font-semibold">Edytuj</button>
         </div>
       ))}
+      <div className="w-full h-30 p-4 my-4 text-center">
+        <button className="w-1/6 border-2 border-letter_color p-1 bg-logo_bg text-letter_color font-bold rounded-md mr-6">
+          Dodaj
+        </button>
+      </div>
     </div>
   );
 };

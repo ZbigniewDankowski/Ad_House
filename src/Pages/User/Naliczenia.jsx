@@ -92,7 +92,7 @@ const Naliczenia = () => {
               Razem-Media
             </h1>
             <div className="w-36 h-full text-letter_color text-right px-5 py-1 font-bold border-l-2 border-letter_color">
-              XXX
+              274,85 zł
             </div>
           </div>
           <div className="flex flex-wrap w-full h-30">
@@ -125,7 +125,7 @@ const Naliczenia = () => {
               Razem-Eksploatacja
             </h1>
             <div className="w-36 h-full text-letter_color text-right px-5 py-1 font-bold border-l-2 border-letter_color">
-              XXX
+              119,00 zł
             </div>
           </div>
           <div className="flex flex-wrap w-full h-30">
@@ -147,7 +147,7 @@ const Naliczenia = () => {
               Razem
             </h1>
             <div className="w-36 h-full text-letter_color text-right px-5 py-1 font-bold border-l-2 border-letter_color">
-              XXX
+              393,85 zł
             </div>
           </div>
         </div>
