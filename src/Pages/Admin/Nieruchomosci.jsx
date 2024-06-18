@@ -33,31 +33,29 @@ const Nieruchomosci = () => {
         </h3>
         <p className={p_class}>
           Województwo:{" "}
-          <p className="text-letter_color text-lg p-3 inline">
+          <p className="text-white text-lg p-3 inline">
             {nieruchomosci.Wojewodztwo}
           </p>
         </p>
         <p className={p_class}>
           Kod pocztowy:{" "}
-          <p className="text-letter_color text-lg p-3 inline">
+          <p className="text-white text-lg p-3 inline">
             {nieruchomosci.Kod_Pocztowy}
           </p>
         </p>
         <p className={p_class}>
           Miasto:{" "}
-          <p className="text-letter_color text-lg p-3 inline">
+          <p className="text-white text-lg p-3 inline">
             {nieruchomosci.Miasto}
           </p>
         </p>
         <p className={p_class}>
           Ulica:{" "}
-          <p className="text-letter_color text-lg p-3 inline">
-            {nieruchomosci.Ulica}
-          </p>
+          <p className="text-white text-lg p-3 inline">{nieruchomosci.Ulica}</p>
         </p>
         <p className={p_class}>
           Numer budynku:{" "}
-          <p className="text-letter_color text-lg p-3 inline">
+          <p className="text-white text-lg p-3 inline">
             {nieruchomosci.Numer_Budynku}
           </p>
         </p>
@@ -68,43 +66,43 @@ const Nieruchomosci = () => {
         </h3>
         <p className={p_class}>
           Typ budynku:
-          <p className="text-letter_color text-lg p-3 inline">
+          <p className="text-white text-lg p-3 inline">
             {nieruchomosci.Typ_Budynku}
           </p>
         </p>
         <p className={p_class}>
           Liczba mieszkań
-          <p className="text-letter_color text-lg p-3 inline">
+          <p className="text-white text-lg p-3 inline">
             {nieruchomosci.Liczba_Mieszkan}
           </p>
         </p>
         <p className={p_class}>
           Powierzchnia całkowita:
-          <p className="text-letter_color text-lg p-3 inline">
+          <p className="text-white text-lg p-3 inline">
             {nieruchomosci.Powierzchnia_Calkowita} m2
           </p>
         </p>
         <p className={p_class}>
           Powierzchnia mieszkalna:
-          <p className="text-letter_color text-lg p-3 inline">
+          <p className="text-white text-lg p-3 inline">
             {nieruchomosci.Powierzchnia_Mieszkalna} m2
           </p>
         </p>
         <p className={p_class}>
           Powierzchnia Części Wspólnej
-          <p className="text-letter_color text-lg p-3 inline">
+          <p className="text-white text-lg p-3 inline">
             {nieruchomosci.Powierzchnia_Cz_Wspolnej} m2
           </p>
         </p>
         <p className={p_class}>
           Powierzchnia Hali Garażowej
-          <p className="text-letter_color text-lg p-3 inline">
+          <p className="text-white text-lg p-3 inline">
             {nieruchomosci.Powierzchnia_Hal_Garazowej} m2
           </p>
         </p>
         <p className={p_class}>
           Powierzchnia Lokali Użytkowych
-          <p className="text-letter_color text-lg p-3 inline">
+          <p className="text-white text-lg p-3 inline">
             {nieruchomosci.Powierzchnia_Lok_Uzytkowych} m2
           </p>
         </p>
