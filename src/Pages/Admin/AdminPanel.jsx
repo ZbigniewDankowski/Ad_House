@@ -29,7 +29,7 @@ const AdminPanel = ({ admin }) => {
   };
 
   const menuItems = [
-    { key: "start", label: "Pulpit" },
+    { key: "start", label: "Start" },
     {
       key: "Wspólnota",
       label: "Wspólnota",
